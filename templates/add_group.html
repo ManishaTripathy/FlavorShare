@@ -1,0 +1,23 @@
+{% extends "layout.html" %}
+{% block body %}
+{% if error %}<p class=error><strong>Error:</strong> {{ error }}{% endif %}
+
+<div id='content' data-role='content' style="text-align: center;">
+
+<form action="{{ url_for('add_group') }}" method=post>
+    <div style="margin-top:10%; width:30%; height:30%;margin-left:35%;margin-right:30%;font-family:Comic Sans MS, Comic Sans, cursive;" >
+        <dl>
+        <dt>Group Name*:
+            <dd><input type=text name=name>
+                <dt>Description:
+                    <dd><input type=text name=description>
+                                <dt>Venue:
+                                    <dd><input type=text name=venue>
+                                        <dt>Event Date:
+                                            <dd><input type=text name=eventdate>
+                                                <dd><button name="add_group" value="next">Next</button>
+                                                        </dl>
+    </div>
+</form>
+</div>
+{% endblock %}

@@ -1,0 +1,18 @@
+{% extends "layout.html" %}
+{% block body %}
+<h2>Group Summary</h2>
+{% if error %}<p class=error><strong>Error:</strong> {{ error }}{% endif %}
+<form action="{{ url_for('group_summary') }}" method=post>
+    <dl>
+        <dt>Group Name:
+            <dd><input name=name value="Group1" readonly>
+                <dt>Description:
+                    <dd><input type=text name=description value="This group has been created for celebration of the 50th anniversary of our organisation." readonly>
+                                <dt>Venue:
+                                    <dd><input type=text name=venue value="206 Downtown Bryan" readonly>
+                                        <dt>Event Date:
+                                            <dd><input type=text name=eventdate value="26-04-2015" readonly>
+                                                <dd><button name="next" value="next">Home</button>
+                                                    </dl>
+</form>
+{% endblock %}

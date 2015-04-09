@@ -1,0 +1,43 @@
+{% extends "layout.html" %}
+{% block body %}
+
+{% if error %}<p class=error><strong>Error:</strong> {{ error }}{% endif %}
+<div id='content' data-role='content' style="text-align: center;">
+<form action="{{ url_for('display_group_members') }}" method=post>
+     <div style="margin-top:10%; width:30%; height:30%;margin-left:35%;margin-right:30%;font-family:Comic Sans MS, Comic Sans, cursive;" >
+		<dl>
+			<div id='TextBoxesGroup' data-role="controlgroup" data-type="horizontal">
+			<h2>GROUP MEMBERS</h2>
+			<!--<div id="TextBoxDiv1">-->
+			<div class="ui-grid-b">
+				{% for entry in entries %}
+				<div class="ui-block-a">
+					<ul class=entries>
+					<li name="member">{{ entry.name }}
+					</ul>
+				</div>
+				<div class="ui-block-b">
+					<ul class=entries>
+					<li><button name="delete" data-icon="delete" data-iconpos="notext" id="{{ entry.name }}" value="delete"></li>
+					</ul>
+				</div>
+				{% endfor %}
+			</div>
+	</div>
+	<div class="ui-grid-solo ui-responsive">
+		<div class="ui-block-a">
+			<button name="add_more" value="add_more">Add More</button>
+		</div>
+	</div>
+	<div class="ui-grid-solo ui-responsive">
+		<div class="ui-block-a">
+			<button name="finish" value="finish">Finish</button>
+		</div>
+	</div>
+
+
+	</dl>
+</div>
+</form>
+</div>
+{% endblock %}

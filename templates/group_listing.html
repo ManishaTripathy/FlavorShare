@@ -1,0 +1,23 @@
+{% extends "layout.html" %}
+
+{% block body %}
+{% if error %}<p class=error><strong>Error:</strong> {{ error }}{% endif %}
+
+<div id='content' data-role='content' style="text-align: center;">
+	<form action="{{ url_for('group_listing') }}" method=post>
+		<div style="margin-top:10%; width:30%; height:30%;margin-left:35%;margin-right:30%;font-family:Comic Sans MS, Comic Sans, cursive;" >
+        	<dl>
+				<button name="group_listing" data-icon="plus" value="GroupListing">Add a Group</button>
+			</dl>
+            <ul data-role="listview" style="margin-top:5%;">
+                {% for x in group_names %}
+                    {% for i in x %}
+                     <li><a href="#">{{ i }}</a></li>
+                     {% endfor %}
+                {% endfor %}
+            </ul>
+		</div>
+	</form>
+</div>
+
+{% endblock %}

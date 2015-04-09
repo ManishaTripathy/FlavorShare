@@ -4,15 +4,15 @@
 {% if error %}<p class=error><strong>Error:</strong> {{ error }}{% endif %}
 
 <div id='content' data-role='content' style="text-align: center;">
-	<form action="{{ url_for('login_or_register') }}" method=post>
-		<div style="margin-top:15%; width:30%; height:30%;margin-left:35%;margin-right:30%;font-family:Comic Sans MS, Comic Sans, cursive;" >
-			<dl>
-				<button name="login_register" type="submit" value="Login">Login</button> <br /><br/>
-				<div style="color:black; font-weight:bold; font-size:150%">Or</div> <br/><br/>
-				<button class="center-alignment" name="login_register" type="submit" value="Register" >Register</button> <br />
-			</dl>
-		</div>
-	</form>
+    <form action="{{ url_for('login_or_register') }}" method=post>
+        <div style="margin-top:15%; width:30%; height:30%;margin-left:35%;margin-right:30%;font-family:Comic Sans MS, Comic Sans, cursive;" >
+            <dl>
+                <button name="login_register" type="submit" value="Login">Login</button> <br /><br/>
+                <div style="color:black; font-weight:bold; font-size:150%">Or</div> <br/><br/>
+                <button class="center-alignment" name="login_register" type="submit" value="Register" >Register</button> <br />
+            </dl>
+        </div>
+    </form>
 </div>
 
 {% endblock %}

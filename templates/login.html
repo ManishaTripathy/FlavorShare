@@ -1,14 +1,18 @@
 {% extends "layout.html" %}
+
 {% block body %}
-<h2>Login</h2>
 {% if error %}<p class=error><strong>Error:</strong> {{ error }}{% endif %}
-<form action="{{ url_for('login') }}" method=post>
-    <dl>
-        <dt>Username:
-            <dd><input type=text name=username>
-                <dt>Password:
-                    <dd><input type=password name=password>
-                        <dd><input name=login type=submit value=Login>
-                            </dl>
-</form>
+<div id='content' data-role='content' style="text-align: center;">
+    <form action="{{ url_for('login') }}" method=post>
+        <div style="margin-top:15%; width:30%; height:30%;margin-left:35%;margin-right:30%;font-family:Comic Sans MS, Comic Sans, cursive;" >
+            <dl>
+                <dt>Username (email)
+                <dd><input type=text name=username>
+                <dt>Password
+                <dd><input type=password name=password>
+                <dd><input name=login type=submit value=Login>
+            </dl>
+        </div>
+    </form>
+</div>
 {% endblock %}

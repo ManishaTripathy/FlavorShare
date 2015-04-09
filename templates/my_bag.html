@@ -1,0 +1,49 @@
+{% extends "layout.html" %}
+{% block body %}
+<h2>My Bag</h2>
+{% if error %}<p class=error><strong>Error:</strong> {{ error }}{% endif %}
+<form action="{{ url_for('my_bag') }}" method=get>    
+	<div data-role="collapsible" data-theme="b" data-content-theme="d" data-collapsed-icon="arrow-r" data-expanded-icon="arrow-d" data-inset="false">
+		<h2>Saved Lists</h2>
+		<div "collapsible" data-theme="b" data-content-theme="d" data-collapsed-icon="arrow-r" data-expanded-icon="arrow-d" data-inset="false">
+			<h3>Bag 1</h3>
+			<ul data-role="listview">
+				<ul><a>Member Name : ABC</a></ul>
+				<ul><a>Group Name : Group 1</a></ul>
+				<ul><a>List :</a></ul>
+				<li><a>Chillies - 1/4 pound</a></li>
+				<li><a>Milk - 1 Quart</a></li>
+			</ul>
+			<h3>Bag 2</h3>
+			<ul data-role="listview">
+				<ul><a>Member Name : ABC</a></ul>
+				<ul><a>Group Name : Group 1</a></ul>
+				<ul><a>List :</a></ul>
+				<li><a>Chillies - 1/4 pound</a></li>
+				<li><a>Milk - 1 Quart</a></li>
+			</ul>
+		</div>
+	</div><!-- /collapsible -->
+	<div data-role="collapsible" data-theme="b" data-content-theme="d" data-collapsed-icon="arrow-r" data-expanded-icon="arrow-d" data-inset="false">
+		<h2>Shared Lists</h2>
+		<div "collapsible" data-theme="b" data-content-theme="d" data-collapsed-icon="arrow-r" data-expanded-icon="arrow-d" data-inset="false">
+			<h3>Bag 1</h3>
+			<ul data-role="listview">
+				<ul><a>Member Name : ABC</a></ul>
+				<ul><a>Group Name : Group 1</a></ul>
+				<ul><a>List :</a></ul>
+				<li><a>Chillies - 1/4 pound</a></li>
+				<li><a>Milk - 1 Quart</a></li>
+			</ul>
+			<h3>Bag 2</h3>
+			<ul data-role="listview">
+				<ul><a>Member Name : ABC</a></ul>
+				<ul><a>Group Name : Group 1</a></ul>
+				<ul><a>List :</a></ul>
+				<li><a>Chillies - 1/4 pound</a></li>
+				<li><a>Milk - 1 Quart</a></li>
+			</ul>
+		</div>
+	</div><!-- /collapsible -->
+</form>
+{% endblock %}
