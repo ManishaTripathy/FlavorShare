@@ -1,5 +1,5 @@
 # all the imports
-import sqlite3,re
+import sqlite3,re,json
 from flask import Flask, request, session, g, redirect, url_for, \
     abort, render_template, flash
 from contextlib import closing
@@ -163,9 +163,15 @@ def add_group():
                 mid=mids[0]
                 g.db.execute('insert into groups (name,admin_id, description, venue, eventdate) values (?, %d,?, ?,?)'%mid,
                          [request.form['name'], request.form['description'], request.form['venue'], request.form['eventdate'] ])
-                session['gname']=request.form['name']
+
+                cur_group =  g.db.execute('select gid from groups where name = \'' + request.form['name'] + '\'')
+                group_id = [row for row in cur_group.fetchall()]
+                group_id = group_id[0]
+
+                g.db.execute('insert into group_members values (' + group_id + '\, ' + mid + '\)')
                 g.db.commit()
-                flash('Successfully Created')
+
+                session['gname']=request.form['name']
                 return redirect(url_for('group_membersPage'))
         else:
                 flash('Try Again')
@@ -254,6 +260,85 @@ def showBag():
 			g.db.execute('select mid_assignee, mid_assignor, gid from my_bag as m where session["mid"]')
 			flash('Successfully Created')
 			return redirect(url_for('showBag'))
+
+@app.route('/saved_recipes')
+def savedRecipesPage():
+    error = None
+    print "In saved recipes page"
+    cur = g.db.execute('select mid from users where email = \''+ session.get('username') + '\'')
+    mids = [row for row in cur.fetchall()]
+    mid=mids[0]
+    print mid
+    cur_recipe = g.db.execute('select name from recipes where rid in (select rid from group_category_recipes where mid =\'' + str(mid[0])+ '\')')
+    recipe_names = [row for row in cur_recipe.fetchall()]
+    print "In Saved Recipes Page"
+    return render_template('saved_recipes.html', recipe_names = recipe_names)
+
+@app.route('/recipe/')
+@app.route('/recipe/<recipe_name>')
+def recipe(recipe_name):
+    print "In recipe"
+    print recipe_name
+    error = None
+    cur = g.db.execute('select * from recipes where name = \''+ recipe_name + '\'')
+    recipe_details = [row for row in cur.fetchall()]
+    recipe_details = recipe_details[0]
+    print recipe_details
+    rid = recipe_details[0]
+    cid = recipe_details[1]
+    rating = recipe_details[4]
+    cook_time = recipe_details[5]
+    servings = recipe_details[6]
+
+    print rid
+    print cid
+    print rating
+    print cook_time
+    print servings
+
+    instructions = recipe_details[3]
+    print instructions
+
+    cur_ingredients = g.db.execute('select name,quantity from ingredients,recipe_ingredients where rid = ' + str(rid) + ' and recipe_ingredients.iid = ingredients.iid')
+    ingredient_list = [row for row in cur_ingredients.fetchall()]
+    print ingredient_list
+
+    cur_users = g.db.execute('select mid from users where email = \''+ session.get('username') + '\'')
+    mids = [row for row in cur_users.fetchall()]
+    print mids
+    mid=mids[0]
+    print mid[0]
+    cur_group_names = g.db.execute('select name from groups where gid in(select gid from group_members where mid = ' + str(mid[0])+')')
+    group_names = [row for row in cur_group_names.fetchall()]
+    print group_names
+
+    group_list = {}
+    for name in group_names:
+        print name[0]
+        cur_group_members =  g.db.execute('select name from users where mid in(select mid from group_members where gid =(select gid from groups where name=\''+str(name[0])+'\'))' )
+        member_name = [row for row in cur_group_members.fetchall()]
+        print member_name
+        member_names=[ member[0] for member in member_name]
+        group_list[name[0]]=member_names
+    print group_list
+    jsonGroupList = json.dumps(group_list)
+    return render_template('recipe.html',recipe_name = recipe_name, rating=rating, cook_time=cook_time, servings=servings, instructions=instructions,ingredient_list=ingredient_list,group_list=group_list, jsonGroupList=jsonGroupList)
+
+
+@app.route('/save/')
+@app.route('/save/<recipe_name>')
+def save(recipe_name):
+    error = None
+    print 'In save'
+    return redirect(url_for('recipe',recipe_name=recipe_name))
+
+@app.route('/share/')
+@app.route('/share/<recipe_name>')
+def share(recipe_name):
+    error = None
+    print 'In share'
+    return redirect(url_for('recipe', recipe_name=recipe_name))
+
 
 if __name__ == '__main__':
     app.debug = True

@@ -29,12 +29,13 @@ primary key(gid,mid)
 drop table if exists recipes;
 create table recipes (
 rid integer primary key autoincrement,
-category text not null,
+cid integer not null,
 name text not null,
 instructions text not null,
 rating integer,
 cook_time integer not null,
-servings integer not null
+servings integer not null,
+foreign key(cid) references category(cid)
 );
 
 drop table if exists ingredients;
@@ -47,6 +48,7 @@ drop table if exists recipe_ingredients;
 create table recipe_ingredients (
 rid integer,
 iid integer,
+quantity text,
 foreign key(rid) references recipes(rid),
 foreign key(iid) references ingredients(iid),
 primary key(rid,iid)

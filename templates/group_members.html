@@ -5,7 +5,11 @@
 <div id='content' data-role='content' style="text-align: center;">
 <form action="{{ url_for('group_members') }}" method=post>
     <div style="margin-top:10%; width:30%; height:30%;margin-left:35%;margin-right:30%;font-family:Comic Sans MS, Comic Sans, cursive;" >
-        		<dl>
+        <div>
+            <h2>Enter Group Members</h2>
+        </div>
+
+    <dl>
 			<div id='TextBoxesGroup' data-role="controlgroup" data-type="horizontal">
 			<div id="TextBoxDiv1">
 			<label>Email  : </label><input type=text name='email1' id='email' />

@@ -1,0 +1,118 @@
+{% extends "layout.html" %}
+
+{% block body %}
+{% if error %}<p class=error><strong>Error:</strong> {{ error }}{% endif %}
+<script type='text/javascript'>
+
+    var main = function(){
+        alert("Hi");
+        console.log("Hiiii");
+        $("#ingredients-content").hide();
+        $("#recipe-content").hide();
+
+        $("#ingredients-panel").click(function(){
+            $("#recipe-content").hide();
+            $("#ingredients-content").toggle();
+        });
+
+        $("#recipe-panel").click(function(){
+            $("#ingredients-content").hide();
+            $("#recipe-content").toggle();
+        });
+        $("#select-group").on('change',function(){
+            $("#select-members").empty();
+            var group_name=$(this).val();
+            //alert(group_name);
+            //console.log("Hi");
+            var data = {{ jsonGroupList|tojson|safe }};
+            //alert(data);
+            var data1 = JSON.parse(data);
+            var group_members_list = data1[group_name];
+            //console.log(data1[group_name]);
+            for (var i = 0; i < group_members_list.length; i++) {
+                alert(group_members_list[i]);
+                $("#select-members").append($('<option></option>').val(group_members_list[i]).html(group_members_list[i]).attr("name",group_members_list[i]));
+            }
+        });
+    }
+    $(document).ready(main);
+    </script>
+<div id='content' data-role='content' style="text-align: center;">
+    <form method=post>
+        <div style="margin-top:2%;width:80%;font-family:Comic Sans MS, Comic Sans;margin-left:5%" >
+            <div>
+                <h2 style="text-align:left;margin-left:5%;color:white;">{{ recipe_name }}</h2>
+            </div>
+            <div class="ui-grid-a ui-responsive"  style="width: 100%;height:400px">
+                <div class="ui-block-a" style="width: 70%; height: 100%;padding: 2%">
+                    <img src="{{ url_for('static', filename='images/' + recipe_name + '.jpg') }}" width="100%" height="100%" style="border: 2px solid #000000; border-radius: 25px;" alt="FlavorShare" />
+                    <p>My Groups</p>
+                </div>
+                <div class="ui-block-b" style="width: 30%; height: 100%;padding: 2%; text-align:left; margin-top:5%" >
+                <p>Recipe Type : Dessert</p>
+                <p>Prep Time : 5 mins</p>
+                <p>Cook Time : {{ cook_time }} mins</p>
+                <p>Cuisine : American</p>
+                <p>Serves : {{ servings }}</p>
+                </div>
+            </div>
+            <div class="ui-grid-a ui-responsive" style="width: 100%;height:80px;background-color:#404040; color:white">
+                    <div id="ingredients-panel" class="ui-block-a" style="width: 50%; height: 100%;border:2px solid red" data-theme="b">
+                        <p>Ingredients</p>
+                        <!--<div data-role="collapsible" data-theme="b" id="custom-collapsible" style="width: 100%; height: 100%">
+                            <h3>Ingredients</h3>
+                            <div style="width: 100%;height:80px;">details</div>
+                        </div>-->
+                    </div>
+                   <div id="recipe-panel" class="ui-block-b" style="width: 50%; height: 100%;border:2px solid red">
+                        <p>Recipe</p>
+                    </div>
+            </div>
+            <div id="ingredients-content" style="width: 100%;background-color:#404040; color:white; text-align: center;">
+                <div style="width: 80%;display: inline-block;margin: 10px" >
+                {% for ingredient in ingredient_list %}
+                    {% set item = ingredient[1] + ' ' + ingredient[0] %}
+                        <input type="checkbox" name={{ ingredient }} id={{ ingredient }}>
+                        <label for={{ ingredient }}>{{ item }}</label>
+                {% endfor %}
+                </div>
+                <div class="ui-grid-a ui-responsive"  style="width: 100%;">
+                    <div class="ui-block-a" style="width: 50%; height: 100%;padding: 2%">
+                       <a href="{{ url_for('save', recipe_name=recipe_name) }}" data-role="button">Save</a>
+                    </div>
+                    <div class="ui-block-b" style="width: 50%; height: 100%;padding: 2%;" >
+                        <a href="#popupShare" data-rel="popup" data-role="button" data-position-to="window">Share</a>
+                    </div>
+                    <div data-role="popup" id="popupShare" data-overlay-theme="b">
+	                    <div style="font-family:Comic Sans MS, Comic Sans;padding: 20px;" >
+	                        <a href="#" data-rel="back" data-role="button" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
+                            <div>
+                                <h2>Assign Ingredients</h2>
+                            </div>
+                            <dl>
+                                <label for="select-group" class="select">Select Group:</label>
+                                    <select name="select-group" id="select-group">
+                                        <option value="default" name="default">Select a Group</option>
+                                        {% for group_name in group_list.keys() %}
+                                        <option value="{{group_name}}" name="{{group_name}}">{{group_name}}</option>
+                                        {% endfor %}
+                                    </select>
+                                <label for="select-members" class="select">Select Group Members:</label>
+                                    <select name="select-members" id="select-members">
+                                    </select>
+                                <a href="{{ url_for('share', recipe_name=recipe_name) }}" data-role="button">Share</a>
+                            </dl>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="recipe-content" style="width: 100%;background-color:#404040; color:white; text-align: left">
+                {{ instructions }}
+            </div>
+
+        </div>
+    </form>
+</div>
+
+
+{% endblock %}
