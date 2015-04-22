@@ -5,8 +5,6 @@
 <script type='text/javascript'>
 
     var main = function(){
-        alert("Hi");
-        console.log("Hiiii");
         $("#ingredients-content").hide();
         $("#recipe-content").hide();
 
@@ -19,26 +17,11 @@
             $("#ingredients-content").hide();
             $("#recipe-content").toggle();
         });
-        $("#select-group").on('change',function(){
-            $("#select-members").empty();
-            var group_name=$(this).val();
-            //alert(group_name);
-            //console.log("Hi");
-            var data = {{ jsonGroupList|tojson|safe }};
-            //alert(data);
-            var data1 = JSON.parse(data);
-            var group_members_list = data1[group_name];
-            //console.log(data1[group_name]);
-            for (var i = 0; i < group_members_list.length; i++) {
-                alert(group_members_list[i]);
-                $("#select-members").append($('<option></option>').val(group_members_list[i]).html(group_members_list[i]).attr("name",group_members_list[i]));
-            }
-        });
     }
     $(document).ready(main);
     </script>
 <div id='content' data-role='content' style="text-align: center;">
-    <form method=post>
+    <form action="{{ url_for('recipePost',recipe_name=recipe_name) }}" id="recipe_form" method=post>
         <div style="margin-top:2%;width:80%;font-family:Comic Sans MS, Comic Sans;margin-left:5%" >
             <div>
                 <h2 style="text-align:left;margin-left:5%;color:white;">{{ recipe_name }}</h2>
@@ -72,37 +55,17 @@
                 <div style="width: 80%;display: inline-block;margin: 10px" >
                 {% for ingredient in ingredient_list %}
                     {% set item = ingredient[1] + ' ' + ingredient[0] %}
-                        <input type="checkbox" name={{ ingredient }} id={{ ingredient }}>
-                        <label for={{ ingredient }}>{{ item }}</label>
+                        <label>
+                        <input type="checkbox" name="ingredients" id="ingredients" value="{{ item }}">{{ item }}</label>
+
                 {% endfor %}
                 </div>
                 <div class="ui-grid-a ui-responsive"  style="width: 100%;">
                     <div class="ui-block-a" style="width: 50%; height: 100%;padding: 2%">
-                       <a href="{{ url_for('save', recipe_name=recipe_name) }}" data-role="button">Save</a>
+                       <input name=save_or_share type=submit value=Save></input>
                     </div>
                     <div class="ui-block-b" style="width: 50%; height: 100%;padding: 2%;" >
-                        <a href="#popupShare" data-rel="popup" data-role="button" data-position-to="window">Share</a>
-                    </div>
-                    <div data-role="popup" id="popupShare" data-overlay-theme="b">
-	                    <div style="font-family:Comic Sans MS, Comic Sans;padding: 20px;" >
-	                        <a href="#" data-rel="back" data-role="button" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
-                            <div>
-                                <h2>Assign Ingredients</h2>
-                            </div>
-                            <dl>
-                                <label for="select-group" class="select">Select Group:</label>
-                                    <select name="select-group" id="select-group">
-                                        <option value="default" name="default">Select a Group</option>
-                                        {% for group_name in group_list.keys() %}
-                                        <option value="{{group_name}}" name="{{group_name}}">{{group_name}}</option>
-                                        {% endfor %}
-                                    </select>
-                                <label for="select-members" class="select">Select Group Members:</label>
-                                    <select name="select-members" id="select-members">
-                                    </select>
-                                <a href="{{ url_for('share', recipe_name=recipe_name) }}" data-role="button">Share</a>
-                            </dl>
-                        </div>
+                            <input id="share" name=save_or_share type=submit value=Share></input>
                     </div>
                 </div>
             </div>

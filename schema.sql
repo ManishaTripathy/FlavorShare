@@ -83,17 +83,28 @@ foreign key(mid) references users(mid),
 primary key(gid,cid,rid,mid)
 );
 
-drop table if exists my_bag;
-create table my_bag (
+
+drop table if exists my_saved_bag;
+create table my_saved_bag (
+mid integer,
+rid integer,
+ingredient text not null,
+foreign key(mid) references users(mid),
+foreign key(rid) references recipes(rid),
+primary key(mid,rid,ingredient)
+);
+
+drop table if exists my_shared_bag;
+create table my_shared_bag (
 mid_assignee integer,
 mid_assignor integer,
-iid integer,
+rid integer,
 gid integer,
-quantity integer,
+ingredient text not null,
 foreign key(mid_assignee) references users(mid),
 foreign key(mid_assignor) references users(mid),
-foreign key(iid) references ingredients(iid),
-foreign key(gid) references users(mid),
-primary key(mid_assignee,mid_assignor,iid)
+foreign key(rid) references recipes(rid),
+foreign key(gid) references groups(gid),
+primary key(mid_assignee,mid_assignor,rid, gid, ingredient)
 );
 

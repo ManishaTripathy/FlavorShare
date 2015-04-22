@@ -2,7 +2,10 @@
 {% block body %}
 {% if error %}<p class=error><strong>Error:</strong> {{ error }}{% endif %}
 
-<form action="{{ url_for('showBag') }}" method=get>
+<div id='content' data-role='content' style="text-align: center;">
+<form>
+    <div style="margin-top:2%;width:80%;font-family:Comic Sans MS, Comic Sans;margin-left:5%" >
+
 	<div data-role="collapsible" data-theme="b" data-content-theme="d" data-collapsed-icon="arrow-r" data-expanded-icon="arrow-d" data-inset="false">
 		<h2>Saved Lists</h2>
 		<div "collapsible" data-theme="b" data-content-theme="d" data-collapsed-icon="arrow-r" data-expanded-icon="arrow-d" data-inset="false">
@@ -45,5 +48,7 @@
 			</ul>
 		</div>
 	</div><!-- /collapsible -->
+	</div>
 </form>
+</div>
 {% endblock %}
