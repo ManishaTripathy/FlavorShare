@@ -1,0 +1,84 @@
+{% extends "layout.html" %}
+
+{% block body %}
+
+{% if error %}<p class=error><strong>Error:</strong> {{ error }}{% endif %}
+
+<div id='content' data-role='content' style="text-align: center;">
+<form action="{{ url_for('group_config') }}" method=post>
+    <div style="margin-top:10%; width:50%; height:50%;margin-left:25%" >
+		<h2>Enter Group Details</h2>
+		<dl>
+			{% for x in groups %}
+				<div style="color:black; font-family:comic-sans; font-weight:bold; font-size:200%">{{ x.gname }}</div>
+			{% endfor %}
+			<div id='TextGroup' data-role="controlgroup" data-type="horizontal">
+			<div id="TextBox1">
+			<ul data-role="listview" style="margin-top:5%;">
+
+				<div data-role="fieldcontain" >
+					<div class="ui-grid-a">
+						<div class="ui-block-a" style="width:80%:height=50%"><span>Main course  </span></div>
+						<div class="ui-block-b" style="width:20%:height=50%"><span><input type=text name='category1' id='category' value="0"/></span></div>
+					</div>
+				</div>
+
+
+				<div data-role="fieldcontain" style="width:150%">
+					<label for="category2" style="width:100px:float:left">Appetizers</label>
+					<div style="width=40px"><input type="text" name="category2" id="category" value="0"  style="width:50px:float:right"/></div>
+				</div>
+
+				<div data-role="fieldcontain">
+					<label style="width:100px:float:left">Deserts</label>
+					<input type="text" name="category3" id="category" value="0"  />
+				</div>
+
+				<div data-role="fieldcontain">
+					<a href="group_config" name="gname" value="gvalue" id="beverage">Beverages  : </a>
+					<input type=text name='category4' id='category' value="0"/>
+				</div>
+
+				<div data-role="fieldcontain">
+					<a href="group_config" name="gname" value="gvalue" id="bread">Breads  : </a>
+					<input type=text name='category5' id='category' value="0" />
+				</div>
+
+				<div data-role="fieldcontain">
+					<a href="group_config" name="gname" value="gvalue" id="side_dish">Side Dishes  : </a>
+					<input type=text name='category6' id='category' value="0"/>
+				</div>
+
+				<div data-role="fieldcontain">
+					<a href="group_config" name="gname" value="gvalue" id="plate">Plates  : </a>
+					<input type=text name='category7' id='category' value="0"/>
+				</div>
+
+				<div data-role="fieldcontain">
+					<a href="group_config" name="gname" value="gvalue" id="cup">Cups  : </a>
+					<input type=text name='category8' id='category' value="0"/>
+				</div>
+
+				<div data-role="fieldcontain">
+					<a href="group_config" name="gname" value="gvalue" id="silverware">Silverware  : </a>
+					<input type=text name='category9' id='category' value="0"/>
+				</div>
+
+				<div data-role="fieldcontain">
+					<a href="group_config" name="gname" value="gvalue" id="napkin">Napkins  : </a>
+					<input type=text name='category10' id='category' value="0"/>
+				</div>
+
+			</ul>
+			</div>
+			</div>
+			<button name="finish_group" value="save">Save</button>
+		</dl>
+
+</div>
+</form>
+</div>
+
+{% endblock %}
+
+

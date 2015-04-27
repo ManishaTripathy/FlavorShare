@@ -6,16 +6,15 @@
 <div id='content' data-role='content' style="text-align: center;">
 	<form action="{{ url_for('group_listing') }}" method=post>
 		<div style="margin-top:10%; width:30%; height:30%;margin-left:35%;margin-right:30%;font-family:Comic Sans MS, Comic Sans, cursive;" >
-        <div>
-            <h2>My Groups</h2>
-        </div>
         	<dl>
-				<button name="group_listing" data-icon="plus" value="GroupListing">Add a Group</button>
+				<!--a href="add_group" data-role="button" name="add_group" data-icon="plus" value="GroupListing">Add a Group</a-->
+				<button data-role="button" name="listing" value="add_group" data-icon="plus" value="GroupListing">Add a Group</button>
 			</dl>
             <ul data-role="listview" style="margin-top:5%;">
                 {% for x in group_names %}
                     {% for i in x %}
-                     <li><a href="#">{{ i }}</a></li>
+                     <!--li><a href="group_summary/{{ i }}" name="group_summary">{{ i }}</a></li-->
+					 <button data-role="button" name="listing" value="{{ i }}" type="text">{{ i }}</button>
                      {% endfor %}
                 {% endfor %}
             </ul>

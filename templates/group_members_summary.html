@@ -1,0 +1,26 @@
+{% extends "layout.html" %}
+{% block body %}
+
+{% if error %}<p class=error><strong>Error:</strong> {{ error }}{% endif %}
+<div id='content' data-role='content' style="text-align: center;">
+
+<form action="{{ url_for('group_members_summary') }}" method=post>
+    <div style="margin-top:10%; width:30%; height:30%;margin-left:35%;margin-right:30%;font-family:Comic Sans MS, Comic Sans, cursive;" >
+        		<dl>
+				<h2>Enter Group Members</h2>
+			<div id='TextBoxesGroup' data-role="controlgroup" data-type="horizontal">
+			<div id="TextBoxDiv1">
+			<label>Email  : </label><input type=text name='email1' id='email' />
+			<label>Email  : </label><input type=text name='email2' id='email' />
+			<label>Email  : </label><input type=text name='email3' id='email' />
+			<label>Email  : </label><input type=text name='email4' id='email' />
+			<label>Email  : </label><input type=text name='email5' id='email' />
+		    </div>
+	        </div>
+	<button data-role="button" name="group_summary" value="next">Done</button>
+	<!--a href="display_group_members" data-role="button" name="display_group_members" value="next">Next</a-->
+	</dl>
+	</div>
+</form>
+</div>
+{% endblock %}

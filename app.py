@@ -18,7 +18,6 @@ entries = []
 app = Flask(__name__)
 app.config.from_object(__name__)
 
-
 def connect_db():
     return sqlite3.connect(app.config['DATABASE'])
 
@@ -60,7 +59,10 @@ def login_or_register():
 @app.route('/register')
 def registerPage():
     error = None
-    return render_template('register.html')
+    if not session.get('logged_in'):
+        return render_template('register.html')
+    else :
+        return redirect(url_for('homePage'))
 
 EMAIL_REGEX = re.compile(r"[^@|\s]+@[^@]+\.[^@|\s]+")
 
@@ -84,7 +86,11 @@ def register():
 @app.route('/login')
 def loginPage():
     error = None
-    return render_template('login.html')
+    if not session.get('logged_in'):
+        return render_template('login.html')
+    else :
+        return redirect(url_for('homePage'))
+
 
 @app.route('/login', methods=['POST'])
 def login():
@@ -105,6 +111,8 @@ def login():
 @app.route('/home')
 def homePage():
     error = None
+    if not session.get('logged_in'):
+        return render_template('login_or_register.html')
     cur = g.db.execute('select name from users where email = \''+ session.get('username') + '\'')
     names = [row for row in cur.fetchall()]
     name = names[0]
@@ -123,62 +131,117 @@ def group_listingPage():
     error = None
     cur_users = g.db.execute('select mid from users where email = \''+ session.get('username') + '\'')
     mids = [row for row in cur_users.fetchall()]
+    #print mids
     mid=mids[0]
-    cur_groups = g.db.execute('select name from groups where admin_id = \''+ str(mid[0]) + '\'')
+    #print mid[0]
+    cur_groups = g.db.execute('select name from groups where gid in ( select gid from group_members where mid = \''+ str(mid[0]) + '\')')
+    #print cur_groups
     group_names = [row for row in cur_groups.fetchall()]
+    #print group_names
     return render_template('group_listing.html', group_names=group_names)
 
-@app.route('/group_listing', methods=['POST'])
+@app.route('/group_listing', methods=['GET','POST'])
 def group_listing():
-    error = None
-    if request.method == 'POST':
-        if request.form['group_listing'] == "GroupListing":
-            return redirect(url_for('add_groupPage'))
+	error = None
+	if request.method == 'GET':
+		cur_users = g.db.execute('select mid from users where email = \''+ session.get('username') + '\'')
+		mids = [row for row in cur_users.fetchall()]
+		#print mids
+		mid=mids[0]
+		#print mid[0]
+		cur_groups = g.db.execute('select name from groups where admin_id = \''+ str(mid[0]) + '\'')
+		#print cur_groups
+		group_names = [row for row in cur_groups.fetchall()]
+		#print group_names
+		return render_template('group_listing.html', group_names=group_names)
+	elif request.method == 'POST':
+		if 'listing' in request.form:
+			print request.form['listing']
+		if 'listing' in request.form:
+			if request.form['listing'] == "add_group":
+				return redirect(url_for('add_group'))
+			else:
+				group = request.form['listing']
+				cur = g.db.execute('select name from users where mid in (select mid from group_members where gid in (select gid from groups where name =\"' + group+ '\"))')
+				g.db.commit()
+				cur_details=g.db.execute('select description,venue,eventdate from groups where gid in (select gid from groups where name =\"' + group+ '\")')
+				cur_details=g.db.execute('select description,venue,eventdate from groups where gid in (select gid from groups where name =\"' + group+ '\")')
+				mids = [row for row in cur_details.fetchall()]
+				mid=mids[0]
+				groups = [dict(gname=group)]
+				names = [dict(name=row[0]) for row in cur.fetchall()]
+				desc=[dict(desc=row[0]) for row in mids]
+				venue=[dict(venue=row[1]) for row in mids]
+				eventdate=[dict(eventdate=row[2]) for row in mids]
+				return redirect(url_for('group_summary_init',groups=group))
+				#return render_template('group_summary.html',groups=groups,names=names,desc=desc,venue=venue,eventdate=eventdate)
 
-@app.route('/add_group')
-def add_groupPage():
-    error = None
-    return render_template('add_group.html')
 
-@app.route('/add_group', methods=['POST'])
+@app.route('/add_group', methods=['GET','POST'])
 def add_group():
+	error = None
+	if request.method == 'GET':
+		return render_template('add_group.html')
+	elif request.method == 'POST':
+		if request.form['group_members'] == "Next":
+			cur = g.db.execute('select mid from users where email = \''+ session.get('username') + '\'')
+			mids = [row for row in cur.fetchall()]
+			mid=mids[0]
+			session['grpname']=request.form['name']
+			print session['grpname']
+			g.db.execute('insert into groups (name,admin_id, description, venue, eventdate) values (?,%d,?,?,?)'%mid,[ request.form['name'],request.form['description'],request.form['venue'],request.form['eventdate'] ])
+			g.db.commit()
+			#print gname
+			flash('Successfully Created')
+			return redirect(url_for('group_membersPage'))
+		else:
+			flash('Try Again')
+			return redirect(url_for('add_group'))
+
+@app.route('/group_members_summary')
+def group_members_summaryPage():
     error = None
+    print session['grpname']
+    return render_template('group_members_summary.html')
+
+@app.route('/group_members_summary', methods=['POST'])
+def group_members_summary():
+    error = None
+    print "#@##@$@%@#%$^$^#$^%"+session['gname']
     if request.method == 'POST':
-        if request.form['add_group'] == "next":
-                cur = g.db.execute('select mid from users where email = \''+ session.get('username') + '\'')
-                mids = [row for row in cur.fetchall()]
-                mid=mids[0]
-                g.db.execute('insert into groups (name,admin_id, description, venue, eventdate) values (?, %d,?, ?,?)'%mid,
-                         [request.form['name'], request.form['description'], request.form['venue'], request.form['eventdate'] ])
+        if request.form['group_summary'] == "next":
+			for i in range(1,6) :
+				f = "email{0}".format(i)
+				g.db.execute('insert into group_members(mid,gid) values ((select mid from users where email=\"' + request.form[f]+ '\") ,(select gid from groups where name=\"' + session['gname']+ '\"))')
 
-                cur_group =  g.db.execute('select gid from groups where name = \'' + request.form['name'] + '\'')
-                group_id = [row for row in cur_group.fetchall()]
-                group_id = group_id[0]
+			#g.db.execute('insert into group_members(mid,gid) values ((select mid from users where email=\"' + request.form['email']+ '\") ,(select gid from groups where name=\"' + session['gname']+ '\"))')
+			g.db.commit()
 
-                g.db.execute('insert into group_members values (' + group_id + '\, ' + mid + '\)')
-                g.db.commit()
-
-                session['gname']=request.form['name']
-                return redirect(url_for('group_membersPage'))
-        else:
-                flash('Try Again')
-                return redirect(url_for('add_groupPage'))
+			flash('Successfully Created')
+			return redirect(url_for('group_summary_init',groups=session['gname']))
 
 @app.route('/group_members')
 def group_membersPage():
     error = None
+    print session['grpname']
+    g.db.execute('insert into group_members(mid,gid) values ((select mid from users where mid in (select admin_id from groups where gid in(select gid from groups where name=\"' + session['grpname']+ '\"))) ,(select gid from groups where name=\"' + session['grpname']+ '\"))')
+    g.db.commit()
     return render_template('group_members.html')
 
 @app.route('/group_members', methods=['POST'])
 def group_members():
     error = None
+    print session['grpname']
     if request.method == 'POST':
-        if request.form['edit_group_members'] == "next":
+        if request.form['display_group_members'] == "next":
 			for i in range(1,6) :
 				f = "email{0}".format(i)
-				g.db.execute('insert into group_members(mid,gid) values ((select mid from users where email=\"' + request.form[f]+ '\") ,(select gid from groups where name=\"' + session['gname']+ '\"))')
+				g.db.execute('insert into group_members(mid,gid) values ((select mid from users where email=\"' + request.form[f]+ '\") ,(select gid from groups where name=\"' + session['grpname']+ '\"))')
 
+			#g.db.execute('insert into group_members(mid,gid) values ((select mid from users where email=\"' + request.form['email']+ '\") ,(select gid from groups where name=\"' + session['gname']+ '\"))')
 			g.db.commit()
+			print "go to hell"
+
 			flash('Successfully Created')
 			return redirect(url_for('display_group_membersPage'))
 
@@ -188,46 +251,84 @@ def display_group_membersPage():
     if request.method == 'GET':
 		#g.db.execute('insert into users (name, email, password) values ("tgif", "6", "abc")')
 		#g.db.commit()
-		cur = g.db.execute('select name from users where mid in (select mid from group_members where gid in (select gid from groups where name =\"' + session['gname']+ '\"))')
+		cur = g.db.execute('select name from users where mid in (select mid from group_members where gid in (select gid from groups where name =\"' + session['grpname']+ '\"))')
 		#g.db.execute('insert into users (name, email, password) values ("tgif", "999", "abc")')
-		#g.db.commit()
+		g.db.commit()
 		entries = [dict(name=row[0]) for row in cur.fetchall()]
-		#g.db.execute('insert into users (name, email, password) values ("tgif", "100", "abc")')
-		#g.db.commit()
     return render_template('display_group_members.html', entries=entries)
 
 @app.route('/display_group_members', methods=['POST'])
 def display_group_members():
     error = None
     if request.method == 'POST':
-		if request.form['delete'] == "delete":
-			#g.db.execute('delete from group_members where mid in ((select mid from users where name=\"' + request.form["member"]+ '\"))')
-			#return render_template('display_group_members.html')
-			memberName = request.form['member']
-			g.db.execute('delete from group_members where mid in ((select mid from users where name=\"' + memberName + '\"))')
-			db.commit()
-			cur = g.db.execute('select name from users where mid in (select mid from group_members where gid in (select gid from groups where name =\"' + session['gname']+ '\"))')
-			entries = [dict(name=row[0]) for row in cur.fetchall()]
-			pageFunctionName='display_group_members.html'
-			return redirect(url_for('showBag'))
-			#return render_template('display_group_members.html', entries=entries)
-		elif request.form['add_more'] == "add_more":
+		if request.form['redirect_to'] == "add_more":
 			pageFunctionName='group_members.html'
-		elif request.form['finish'] == "finish":
-			pageFunctionName='group_summary.html'
-    return render_template(pageFunctionName)
+			return render_template(pageFunctionName)
+		elif request.form['redirect_to'] == "next":
+			pageFunctionName='group_config.html'
+			return redirect(url_for('group_configPage'))
 
 @app.route('/group_summary')
 def group_summary_init():
-    error = None
-    return render_template('group_summary.html')
+	error = None
+	group = request.args['groups']
+	print group
+	session['gname'] = group
+	cur = g.db.execute('select name from users where mid in (select mid from group_members where gid in (select gid from groups where name =\"' + group+ '\"))')
+	g.db.commit()
+	cur_details=g.db.execute('select description,venue,eventdate from groups where gid in (select gid from groups where name =\"' + group+ '\")')
+	mids = [row for row in cur_details.fetchall()]
+	mid=mids[0]
+	groups = [dict(gname=group)]
+	names = [dict(name=row[0]) for row in cur.fetchall()]
+	desc=[dict(desc=row[0]) for row in mids]
+	venue=[dict(venue=row[1]) for row in mids]
+	eventdate=[dict(eventdate=row[2]) for row in mids]
+	return render_template('group_summary.html',groups=groups,names=names,desc=desc,venue=venue,eventdate=eventdate)
 
 @app.route('/group_summary', methods=['POST'])
 def group_summary():
     error = None
     if request.method == 'POST':
-		if request.form['next'] == "next":
-			return render_template('home.html')
+		if 'member' in request.form:
+			print request.form['member']
+			memberName = request.form['member']
+			g.db.execute('delete from group_members where mid in ((select mid from users where name=\"' + memberName+ '\"))')
+			g.db.commit()
+			return redirect(url_for('group_summary_init',groups=session['gname']))
+		elif 'edit' in request.form:
+			return redirect(url_for('group_members_summaryPage'))
+		elif 'done' in request.form:
+			return redirect(url_for('group_listingPage'))
+		elif 'addrecipe' in request.form:
+			#category = "Main Course"
+			list = ['1','2']
+			category = [dict(name="Main Course")]
+			recipe=[dict(rname=row[0]) for row in list]
+			#desc=[dict(desc=row[0]) for row in mids]
+			#category = [dict(name=session['grpname'])]
+			return render_template('add_recipe.html',recipe=recipe,category=category)
+			#return redirect(url_for('add_recipePage'),recipe=recipe,category=category)
+
+
+@app.route('/group_config')
+def group_configPage():
+    error = None
+    if request.method == 'GET':
+        groups = [dict(gname=session['grpname'])]
+        print groups
+    return render_template('group_config.html',groups=groups)
+
+@app.route('/group_config', methods=['POST'])
+def group_config():
+    error = None
+    if request.method == 'POST':
+        if request.form['finish_group'] == "save":
+            for i in range(1,11) :
+                f = "category{0}".format(i)
+                g.db.execute('insert into group_category(gid,cid,no_of_items) values ((select gid from groups where name=\"' + session['grpname']+ '\"),'+str(i)+', '+request.form[f]+')')
+                g.db.commit()
+            return redirect(url_for('homePage'))
 
 @app.route('/saved_recipes')
 def savedRecipesPage():
@@ -242,6 +343,7 @@ def savedRecipesPage():
 @app.route('/recipe/<recipe_name>')
 def recipe(recipe_name):
     error = None
+    print "In recipe/ page"
     cur = g.db.execute('select * from recipes where name = \''+ recipe_name + '\'')
     recipe_details = [row for row in cur.fetchall()]
     recipe_details = recipe_details[0]

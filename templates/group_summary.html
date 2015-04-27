@@ -1,18 +1,94 @@
 {% extends "layout.html" %}
 {% block body %}
-<h2>Group Summary</h2>
+
 {% if error %}<p class=error><strong>Error:</strong> {{ error }}{% endif %}
+<div id='content' data-role='content' style="text-align: center;">
 <form action="{{ url_for('group_summary') }}" method=post>
-    <dl>
-        <dt>Group Name:
-            <dd><input name=name value="Group1" readonly>
-                <dt>Description:
-                    <dd><input type=text name=description value="This group has been created for celebration of the 50th anniversary of our organisation." readonly>
-                                <dt>Venue:
-                                    <dd><input type=text name=venue value="206 Downtown Bryan" readonly>
-                                        <dt>Event Date:
-                                            <dd><input type=text name=eventdate value="26-04-2015" readonly>
-                                                <dd><button name="next" value="next">Home</button>
-                                                    </dl>
+	<dl>
+		{% for x in groups%}
+		<h2>{{ x.gname }}</h2>
+		
+		</dl>
+		{% for a in desc%}
+		{% for b in venue%}
+		{% for c in eventdate%}
+		
+	<label for="textarea-1" class="ui-input-text ui-corner-all" readonly>Description:</label>
+	<textarea cols="40" rows="8" name="textarea-1" id="textarea-1" class="ui-input-text ui-body-c ui-corner-all ui-shadow-inset" readonly>{{ a.desc}}</textarea>
+	
+	<div></div>
+	<label for="textarea-1" class="ui-input-text ui-corner-all" readonly>Venue:</label>
+	<textarea cols="40" rows="8" name="textarea-1" id="textarea-1" class="ui-input-text ui-body-c ui-corner-all ui-shadow-inset" readonly>{{ b.venue }}</textarea>
+	<div></div>
+	<label for="textarea-1" class="ui-input-text ui-corner-all" readonly>Event Date:</label>
+	<textarea cols="40" rows="8" name="textarea-1" id="textarea-1" class="ui-input-text ui-body-c ui-corner-all ui-shadow-inset" readonly>{{ c.eventdate }}</textarea>
+	{% endfor %}
+	{% endfor %}
+	{% endfor %}
+	{% endfor %}
+	
+	<div></div>
+	
+	
+	<ul data-role="listview" data-inset="true" data-shadow="false">
+		<li data-role="collapsible" data-iconpos="right" data-inset="false">
+		<h2>Click to view/edit members</h2>
+		<ul data-role="listview" data-inset="true" data-icon="star">
+		<li>Check the box to remove members</li>
+		{% for r in names %}
+		<li><label><button text-pos="left" data-icon="delete" data-iconpos="right" type="text" name="member" value="{{ r.name }}" style="text-align:left"/>{{ r.name }}</button></label></li>
+		<!--li><label><input type="checkbox" name="checkbox-0" value="{{ r.name }}"/>{{ r.name }}</label></li-->
+		{% endfor %}
+		<button name="edit" value="add" data-icon="plus">Add Member</a>
+		</li>
+	</ul>
+	
+	</li>
+	
+	<ul data-role="listview" data-inset="true" data-shadow="false">
+		<li data-role="collapsible" data-iconpos="right" data-inset="false">
+			<h2>Menu Summary:</h2>
+			<ul data-role="listview" data-inset="true" data-icon="star">
+				<li data-role="list-divider"></li>
+				<ul data-role="listview" data-inset="true" data-shadow="false" data-icon="star">
+					<li data-role="collapsible" data-iconpos="right" data-inset="false">
+						<h2>Main Course <span class="ui-li-count">3</span></h2>
+						<ul data-role="listview" data-inset="true" data-icon="star">
+						<li><label><input type="checkbox" name="checkbox-0" />Creamy Butternut Sage Linguine</label></label></li>
+						<li><label><input type="checkbox" name="checkbox-0" />Crispy Baked Honey Garlic Chicken</label></label></li>
+						<li><label><input type="checkbox" name="checkbox-0" />Sweet and Spicy Tofu</label></label></li>
+						<a href="index.html" data-role="button" data-icon="delete">Remove this item</a>
+					</li>
+				</ul>
+			</ul>
+		
+			<ul data-role="listview" data-inset="true" data-shadow="false" data-icon="star">
+				<li data-role="collapsible" data-iconpos="right" data-inset="false">
+					<h2>Dessert <span class="ui-li-count">2</span></h2>
+					<ul data-role="listview" data-inset="true" data-icon="star">
+						<li><label><input type="checkbox" name="checkbox-0" />Perfect Vanilla Cupcakes</label></label></li>
+						<li><label><input type="checkbox" name="checkbox-0" />The Best Key Lime Pie	</label></label></li>
+						<a href="index.html" data-role="button" data-icon="delete">Remove this item</a>
+					</ul>
+				</li>	
+			</ul>
+		
+			<ul data-role="listview" data-inset="true" data-shadow="false" data-icon="star">
+				<li data-role="collapsible" data-iconpos="right" data-inset="false">
+					<h2>Bread <span class="ui-li-count">2</span></h2>
+					<ul data-role="listview" data-inset="true" data-icon="star">
+						<li><label><input type="checkbox" name="checkbox-0" />Indian Naan Bread</label></label></li>
+						<li><label><input type="checkbox" name="checkbox-0" />Walnut Banana Bread</label></label></li>
+						<a href="index.html" data-role="button" data-icon="delete">Remove this item</a>
+					</ul>
+				<li>	
+			</ul>	
+		</li>
+		</li>
+		</ul>
+	</ul>
+	<button name="addrecipe" value="addrecipe">Add Recipe</button>	
+	<button name="done" value="done">Done</button>	
 </form>
+</div>
 {% endblock %}
