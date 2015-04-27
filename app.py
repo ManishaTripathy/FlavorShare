@@ -81,8 +81,6 @@ def register():
                 flash('Incorrect Details')
                 return redirect(url_for('register'))
 
-
-
 @app.route('/login')
 def loginPage():
     error = None
@@ -95,13 +93,10 @@ def login():
         if request.form['login'] == "Login":
             cur = g.db.execute('select email, password from users where email = \"' + request.form['username'] + '\" and password = \"' + request.form['password'] + '\"')
             user_detail = [row for row in cur.fetchall()]
-            print user_detail
             if user_detail:
-                print "here"
                 flash('Successfully Logged In')
                 session['username'] = request.form['username']
                 session['logged_in'] = True
-                print session['username']
                 return redirect(url_for('homePage'))
             if not user_detail:
                 flash('Invalid Log In')
@@ -110,13 +105,9 @@ def login():
 @app.route('/home')
 def homePage():
     error = None
-    print "HomePage"
     cur = g.db.execute('select name from users where email = \''+ session.get('username') + '\'')
     names = [row for row in cur.fetchall()]
-    print "Homepage"
-    print names
     name = names[0]
-    print name
     display_name = name[0]
     return render_template('home.html',display_name=display_name)
 
@@ -132,13 +123,9 @@ def group_listingPage():
     error = None
     cur_users = g.db.execute('select mid from users where email = \''+ session.get('username') + '\'')
     mids = [row for row in cur_users.fetchall()]
-    print mids
     mid=mids[0]
-    print mid[0]
     cur_groups = g.db.execute('select name from groups where admin_id = \''+ str(mid[0]) + '\'')
-    print cur_groups
     group_names = [row for row in cur_groups.fetchall()]
-    print group_names
     return render_template('group_listing.html', group_names=group_names)
 
 @app.route('/group_listing', methods=['POST'])
@@ -191,9 +178,7 @@ def group_members():
 				f = "email{0}".format(i)
 				g.db.execute('insert into group_members(mid,gid) values ((select mid from users where email=\"' + request.form[f]+ '\") ,(select gid from groups where name=\"' + session['gname']+ '\"))')
 
-			#g.db.execute('insert into group_members(mid,gid) values ((select mid from users where email=\"' + request.form['email']+ '\") ,(select gid from groups where name=\"' + session['gname']+ '\"))')
 			g.db.commit()
-			print "go to hell"
 			flash('Successfully Created')
 			return redirect(url_for('display_group_membersPage'))
 
@@ -247,44 +232,28 @@ def group_summary():
 @app.route('/saved_recipes')
 def savedRecipesPage():
     error = None
-    print "In saved recipes page"
     cur = g.db.execute('select mid from users where email = \''+ session.get('username') + '\'')
     mids = [row for row in cur.fetchall()]
     mid=mids[0]
-    print mid
     cur_recipe = g.db.execute('select name from recipes where rid in (select rid from group_category_recipes where mid =\'' + str(mid[0])+ '\')')
     recipe_names = [row for row in cur_recipe.fetchall()]
-    print "In Saved Recipes Page"
     return render_template('saved_recipes.html', recipe_names = recipe_names)
 
-@app.route('/recipe/')
 @app.route('/recipe/<recipe_name>')
 def recipe(recipe_name):
-    print "In recipe"
-    print recipe_name
     error = None
     cur = g.db.execute('select * from recipes where name = \''+ recipe_name + '\'')
     recipe_details = [row for row in cur.fetchall()]
     recipe_details = recipe_details[0]
-    print recipe_details
     rid = recipe_details[0]
     cid = recipe_details[1]
     rating = recipe_details[4]
     cook_time = recipe_details[5]
     servings = recipe_details[6]
 
-    print rid
-    print cid
-    print rating
-    print cook_time
-    print servings
-
     instructions = recipe_details[3]
-    print instructions
-
     cur_ingredients = g.db.execute('select name,quantity from ingredients,recipe_ingredients where rid = ' + str(rid) + ' and recipe_ingredients.iid = ingredients.iid')
     ingredient_list = [row for row in cur_ingredients.fetchall()]
-    print ingredient_list
 
     return render_template('recipe.html',recipe_name = recipe_name, rating=rating, cook_time=cook_time, servings=servings, instructions=instructions,ingredient_list=ingredient_list)
 
@@ -293,54 +262,33 @@ def recipePost(recipe_name):
     error = None
     print "In post of recipe"
     if request.method == 'POST':
-        print "INSIDE POST"
-        print request.form['save_or_share']
-        print request.form
+        value = request.form.getlist('ingredients')
+        print "checkbox values"
+        print value
+        cur_users = g.db.execute('select mid from users where email = \''+ session.get('username') + '\'')
+        mids = [row for row in cur_users.fetchall()]
+        print mids
+        mid=mids[0]
+        print mid[0]
+        cur_recipe = g.db.execute('select rid from recipes where name =\'' + recipe_name+ '\'')
+        print cur_recipe
+        rids = [row for row in cur_recipe.fetchall()]
+        print rids
+        rid=rids[0]
+
         if request.form['save_or_share'] == "Save":
             print "In Save of recipe"
-            value = request.form.getlist('ingredients')
-            print "checkbox values"
-            print value
-            cur_users = g.db.execute('select mid from users where email = \''+ session.get('username') + '\'')
-            mids = [row for row in cur_users.fetchall()]
-            print mids
-            mid=mids[0]
-            print mid[0]
-            cur_recipe = g.db.execute('select rid from recipes where name =\'' + recipe_name+ '\'')
-            print cur_recipe
-            rids = [row for row in cur_recipe.fetchall()]
-            print rids
-            rid=rids[0]
             print "recipe id"
             print rid[0]
+
             for i in value:
                 g.db.execute('insert into my_saved_bag(mid,rid,ingredient) values('+str(mid[0])+','+str(rid[0])+ ',' +'\"'+i+'\")')
             g.db.commit()
+
             return redirect(url_for('showBag'))
         elif request.form['save_or_share'] == "Share":
             print "In Share of recipe"
-            value = request.form.getlist('ingredients')
-            print "checkbox values"
-            print value
-            cur_users = g.db.execute('select mid from users where email = \''+ session.get('username') + '\'')
-            mids = [row for row in cur_users.fetchall()]
-            print mids
-            mid=mids[0]
-            print mid[0]
 
-            cur_recipe = g.db.execute('select rid from recipes where name =\'' + recipe_name+ '\'')
-            print cur_recipe
-            rids = [row for row in cur_recipe.fetchall()]
-            print rids
-            rid=rids[0]
-            print "recipe id"
-            print rid[0]
-
-            cur_users = g.db.execute('select mid from users where email = \''+ session.get('username') + '\'')
-            mids = [row for row in cur_users.fetchall()]
-            print mids
-            mid=mids[0]
-            print mid[0]
             cur_group_names = g.db.execute('select name from groups where gid in(select gid from group_members where mid = ' + str(mid[0])+')')
             group_names = [row for row in cur_group_names.fetchall()]
             print group_names
@@ -348,7 +296,7 @@ def recipePost(recipe_name):
             group_list = {}
             for name in group_names:
                 print name[0]
-                cur_group_members =  g.db.execute('select name from users where mid in(select mid from group_members where gid =(select gid from groups where name=\''+str(name[0])+'\'))' )
+                cur_group_members =  g.db.execute('select name from users where mid != ' + str(mid[0]) + ' and mid in(select mid from group_members where gid =(select gid from groups where name=\''+str(name[0])+'\'))' )
                 member_name = [row for row in cur_group_members.fetchall()]
                 print member_name
                 member_names=[ member[0] for member in member_name]
@@ -412,7 +360,33 @@ def share():
 @app.route('/showBag')
 def showBag():
     error = None
-    return render_template('showBag.html')
+
+    cur_users = g.db.execute('select mid from users where email = \''+ session.get('username') + '\'')
+    mids = [row for row in cur_users.fetchall()]
+    mid=mids[0]
+
+    cur_saved_bag = g.db.execute('select  ingredient from my_saved_bag where mid = ' + str(mid[0]))
+    saved_bag = [row[0] for row in cur_saved_bag.fetchall()]
+
+    cur_shared_bag = g.db.execute('select mid_assignor,gid,ingredient from my_shared_bag where mid_assignee =' + str(mid[0]))
+    temp_shared_bag = [row for row in cur_shared_bag.fetchall()]
+
+    shared_bag = []
+    for row in temp_shared_bag:
+        print row
+        cur_group_name = g.db.execute('select name from groups where gid = ' + str(row[1]))
+        group_name = [row1[0] for row1 in cur_group_name.fetchall() ]
+        group_name = group_name[0]
+        print group_name
+
+        cur_member_name = g.db.execute('select name from users where mid = ' + str(row[0]))
+        member_name = [row2[0] for row2 in cur_member_name.fetchall() ]
+        member_name = member_name[0]
+        print member_name
+
+        shared_bag.append((row[2], group_name, member_name))
+
+    return render_template('showBag.html', saved_bag = saved_bag,shared_bag = shared_bag)
 
 '''@app.route('/showBag', methods=['POST'])
 def showBag():

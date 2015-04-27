@@ -1,0 +1,36 @@
+{% extends "layout.html" %}
+
+{% block body %}
+{% if error %}<p class=error><strong>Error:</strong> {{ error }}{% endif %}
+
+<div id='content' data-role='content' style="text-align: center;">
+    <form action="{{ url_for('login') }}" method=post>
+        <div style="margin-top:2%; width:50%; height:50%;margin-left:25%;margin-right:15%;font-family:Comic Sans MS, Comic Sans;" >
+            <div>
+                <h2>Saved Recipes</h2>
+            </div>
+            <div class="ui-grid-b ui-responsive" style="width: 100%; height: 100%">
+                    {% set index = 1 %}
+                    {% for x in recipe_names %}
+                        {% for i in x %}
+                            {% if index%3 == 1 %}
+                            {% set block_name = "ui-block-a" %}
+                            {% elif index%3 == 2 %}
+                            {% set block_name = "ui-block-b" %}
+                            {% elif index%3 == 0 %}
+                            {% set block_name = "ui-block-c" %}
+                            {% endif %}
+                            <div class={{ block_name }} style="padding: 2%;">
+                                {% set image_name = i|string %}
+                                {% set j=2 %}
+                                <a href="{{ url_for('recipe', recipe_name=i) }}"><img src="{{ url_for('static', filename='images/' + image_name + '.jpg') }}" width="100%" height="100%" style="border: 2px solid #000000; border-radius: 25px;" alt="FlavorShare" /><p>{{ i }}</p></a>
+                            </div>
+                        {% endfor %}
+                        {% set index = index + 1 %}
+                    {% endfor %}
+
+            </div>
+        </div>
+    </form>
+</div>
+{% endblock %}
