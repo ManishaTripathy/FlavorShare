@@ -1,7 +1,7 @@
 insert into recipes values(201,303,'Perfect Vanilla Cupcakes','1. Preheat the oven to 350 F.  Line two cupcake pans with paper liners.  Set aside.<br/><br/>
 2. In a medium mixing bowl, combine the cake flour, baking powder and salt.  Whisk together and set aside.  Add the butter to the bowl of an electric mixer fitted with the paddle attachment. Beat on medium-high speed for 2 minutes, until light and creamy in color.  Add in the sugar, and beat for 2 minutes more. Scrape down the sides of the bowl and beat for one more minute.<br/><br/>
 3. Mix in the eggs one at a time until incorporated.  Scrape down the sides of the bowl after each addition.  Combine the buttermilk and the vanilla extract in a liquid measuring cup.  With the mixer on low speed, add the dry ingredients alternately with the wet ingredients, beginning and ending with the dry ingredients and mixing just until incorporated.  Scrape down the sides of the bowl and mix for 15 seconds longer.<br/><br/>
-4. Divide the batter between the prepared paper liners, filling each about 2/3 of the way full .You will likely have batter left over after filling 24 wells.  Bake 18-22 minutes, or until a toothpick inserted in the center comes out clean.  Allow to cool in the pans 5-10 minutes, then transfer to a cooling rack to cool completely.  Replace paper liners and bake remaining batter if desired.  Frost cooled cupcakes as desired.',4,50,4);<br/><br/>
+4. Divide the batter between the prepared paper liners, filling each about 2/3 of the way full .You will likely have batter left over after filling 24 wells.  Bake 18-22 minutes, or until a toothpick inserted in the center comes out clean.  Allow to cool in the pans 5-10 minutes, then transfer to a cooling rack to cool completely.  Replace paper liners and bake remaining batter if desired.  Frost cooled cupcakes as desired.<br/><br/>',4,50,4);
 
 insert into recipes values(202,303,'The Best Key Lime Pie','Step 1 : Make the Crust
 Preheat the oven to 350°. In a medium bowl, whisk the graham cracker crumbs with the brown sugar and salt. Add the melted butter and stir until the crumbs are evenly moistened. Press the crumbs evenly over the bottom and up the side of a 10-inch metal pie plate to form the crust. Bake the crust for about 10 minutes, until just set. Let cool completely.<br/><br/>
@@ -18,12 +18,12 @@ insert into recipes values(203,303,'Funfetti Gooey Cake Bars','1. Preheat oven t
 insert into recipes values(204,305,'Walnut Banana Bread','1. Heat oven to 350 degrees. Combine sugar, butter and eggs in large bowl. Beat at medium speed, scraping bowl often, until creamy. Reduce speed to low, add banana and vanilla. Beat until well mixed. Stir in remaining ingredients.<br/><br/>
 2. Spoon batter into a loaf pan lightly coated with nonstick cooking spray. Bake for 60-70 minutes, or until a toothpick inserted in the center comes out clean. Let stand 10 minutes, then remove from pan. Cool completely and slice with a serrated bread knife.<br/><br/>',3,85,10);
 
-insert into recipes values(205,305,'Indian Naan Bread','1. Pour the milk into a liquid measuring cup, whisk in the Greek yogurt, and heat in the microwave until warm to the touch (about 110 degrees F). Pour the warm milk into a large bowl or the bowl of an electric stand mixer. Add the sugar, instant yeast, salt, cardamom, turmeric, and 2½ cups of the flour.<br/><br/>
-2. Mix well with a wooden spoon or the paddle attachment on your stand mixer. Continue adding flour gradually in small amounts, until a soft dough is formed that cleans the sides of the bowl (it will still be sticky). Knead the dough using the dough attachment on your stand mixer, or by hand until it is smooth and elastic, about 3-5 minutes in the mixer or 10 minutes by hand.<br/><br/>
+insert into recipes values(205,305,'Indian Naan Bread','1. Pour the milk into a liquid measuring cup, whisk in the Greek yogurt, and heat in the microwave until warm to the touch about 110 degrees F. Pour the warm milk into a large bowl or the bowl of an electric stand mixer. Add the sugar, instant yeast, salt, cardamom, turmeric, and 2 and half cups of the flour.<br/><br/>
+2. Mix well with a wooden spoon or the paddle attachment on your stand mixer. Continue adding flour gradually in small amounts, until a soft dough is formed that cleans the sides of the bowl it will still be sticky. Knead the dough using the dough attachment on your stand mixer, or by hand until it is smooth and elastic, about 3 to 5 minutes in the mixer or 10 minutes by hand.<br/><br/>
 3. Place the dough in a lightly greased bowl and let it rest at room temperature, covered lightly, for about 2 hours.<br/><br/>
-4. After the dough has rested, turn it onto a lightly floured surface and divide the dough into 12 equal pieces, rounding each into a ball shape. The dough will still be a little sticky, but you won't have too much trouble forming it into balls.<br/><br/>
+4. After the dough has rested, turn it onto a lightly floured surface and divide the dough into 12 equal pieces, rounding each into a ball shape. The dough will still be a little sticky, but you wont have too much trouble forming it into balls.<br/><br/>
 5. Cover the pieces with a towel and let them rest for 30 minutes. While the dough rests, preheat your oven to 500 degrees Fahrenheit and place a pizza stone or large cast iron pan on the bottom rack of the oven.<br/><br/>
-6. Once the dough has rested for a half hour, one by one, roll each piece into a circle about 6 inches wide. Open up the oven and lay the circle of dough on the hot pizza stone. Spritz the top of the dough with a little water or olive oil. Close the oven and bake the naan for about 2-3 minutes, until it is lightly puffed and brown spots begin to appear on the bottom. Turn the naan using tongs and return to oven for another 2 minutes or so.<br/><br/>
+6. Once the dough has rested for a half hour, one by one, roll each piece into a circle about 6 inches wide. Open up the oven and lay the circle of dough on the hot pizza stone. Spritz the top of the dough with a little water or olive oil. Close the oven and bake the naan for about 2 to 3 minutes, until it is lightly puffed and brown spots begin to appear on the bottom. Turn the naan using tongs and return to oven for another 2 minutes or so.<br/><br/>
 7. Remove the naan from the oven and place on a cooling rack or large plate. Brush lightly with Ghee or melted butter. Stack the hot naan on top of each other as it comes out of the oven to hep keep the pieces warm.<br/><br/>',5,180,12);
 
 insert into recipes values(206,301,'Creamy Butternut Sage Linguine','1. Heat oil in  a large skillet over medium heat. Once the oil is hot, add the sage and stir to coat. Let the sage lightly sauté for about a minute or so before transferring it to a small dish. Set the sage aside.<br/><br/>
@@ -71,6 +71,95 @@ insert into recipes values(212,302,'Hot and Spicy Buffalo Shrimp Dip','1. Prehea
 3. Add the shrimp; mix well and put in a small oven safe dish.<br/><br/>
 4. Bake in the oven until hot, about 20-25 minutes.<br/><br/>
 5. Remove from oven and top with remaining cheese, bake until melted, about 4-5 minutes.<br/><br/>',3,35,9);
+
+insert into recipes values(213,302,'Anchor Bar Buffalo Chicken Wings','1.Preheat oven to 425 degrees F.<br/><br/>
+2. If necessary, cut whole wings into two pieces. In a bowl toss the wings with the oil, and salt.<br/><br/>
+3. Place into a large plastic shopping bag, and add the flour. Shake to coat evenly. Remove wings from the bag, shaking off excess flour, and spread out evenly on oiled foil-lined baking pan(s). <br/><br/>
+4. Do not crowd. Bake for about 20 minutes, turn the wings over, and cook another 20 minutes, or until the wings are cooked through and browned.<br/><br/>
+5. While the wings are baking, mix all the ingredients for the sauce in a pan, and over low heat bring to a simmer, stirring occasionally, and then turn off.<br/><br/>
+6. After the wings are cooked, transfer to a large mixing bowl. Pour the sauce over the hot wings and toss with a spoon or spatula to completely coat.<br/><br/>',5,65,8);
+
+insert into recipes values(214,304,'Mock-Mimosa','1.Add juice to drink mix in 2-1/2-qt. plastic or glass pitcher; stir until mix is completely dissolved.<br/><br/>
+2.Stir in club soda.<br/><br/>
+3.Serve over ice in tall glasses. Add orange slice to each glass.<br/><br/>',2,10,10);
+
+insert into recipes values(215,304,'Raspbery-Orange Punch','1 pkt.  makes 2 qt. drink or 2 pkt. makes 1 qt. drink each Raspberry Ice Flavor Drink Mix<br/><br/>
+1 qt.  (4 cups) low-calorie cranberry juice cocktail<br/><br/>
+1 cup  orange juice<br/><br/>
+1 cup  white grape juice<br/><br/>
+2 cups  club soda<br/><br/>',5,5,8);
+
+insert into recipes values(216,301,'Sesame Noodles','1.Bring a large pot of water to a boil. Cook spaghetti until just tender, 9 to 11 minutes or according to package directions. Drain; rinse under cold water.<br/><br/>
+2.Meanwhile, whisk soy sauce, sesame oil, canola oil, vinegar (or lime juice), crushed red pepper, 1/4 cup scallions and 2 tablespoons cilantro if using. Add noodles, snow peas and bell pepper; toss to coat.<br/><br/>
+3.To serve, mix in sesame seeds and garnish with the remaining scallions and cilantro.<br/><br/>',4,30,6);
+
+insert into recipes values(217,301,'Falafel','1.Pour the chickpeas into a large bowl and cover them by about 3 inches of cold water and soak overnight.<br/><br/>
+2.Drain and rinse the garbanzo beans well. Pour them into your food processor along with the chopped onion, garlic cloves, parsley, flour, salt, cumin, ground coriander, black pepper, cayenne pepper, and cardamom.<br/><br/>
+3.Pulse all ingredients together until a rough, coarse meal forms. Scrape the sides of the processor periodically and push the mixture down the sides. Process till the mixture is somewhere between the texture of couscous and a paste.<br/><br/>
+4.Once the mixture reaches the desired consistency, pour it out into a bowl and use a fork to stir; this will make the texture more even throughout<br/><br/>
+5.Fill a skillet with vegetable oil to a depth of 1 ½ inches. I prefer to use cooking oil with a high smoke point, like grapeseed and heat the oil. <br/><br/>
+6.Meanwhile, form falafel mixture into round balls or slider-shaped patties.<br/><br/>
+Once the falafels are fried, remove them from the oil and drain on paper towels',5,55,8);
+
+insert into recipes values(218,301,'Eggplant-Shakshuka','1.In a large skillet, heat olive oil over medium heat.  Add onion and garlic and saute until it begins to soften and becomes fragrant.  Next, add in eggplant, bell pepper and jalapeno and saute until soft about 7-10 minutes.<br/><br/>
+2.Carefully {nothing splatters worse than canned tomatoes} add the canned tomatoes, and the tomato paste to the pan.  Stir to combine, gently breaking open the tomatoes with the back of your spoon.<br/><br/>
+3.Stir in paprika, cumin, salt and pepper to taste and allow the mixture to simmer down and thicken, about 20 minutes.<br/><br/>
+4.Once the sauce has thickened, reduce heat to medium low & crack the eggs one at a time directly over your tomato mixture.  Make sure to space your eggs out evenly in the pan.  Cover with a lid, and allow your eggs to cook over easy style in the sauce.  Since I like my eggs cooked a little more over medium, I allow my eggs to cook for around 10 minutes.<br/><br/>
+5.Remove from heat, garnish with parsley, and serve with a side of bread or pita.',4,55,4);
+
+insert into recipes values(219,301,'Methi Paneer','In a large non-stick pan, heat oil on high, add sliced onions, ginger+garlic paste and sauté till golden in color.<br/><br/>
+Add “powdered spices”, sliced tomatoes and cook till tomatoes mix into the onion mixture and form a thick brown mix.<br/><br/>
+Now add tomato paste, cook for 2 min.<br/><br/>
+Add yogurt, orange fruit color, fresh methi leaves, paneer and sauté for 2-3 min till methi is cooked slightly.<br/><br/>
+Now add water and sauté on low heat for 2-3 min, once the mixture boils, turn off the heat.<br/><br/>
+Decorate with green chilies and serve hot.<br/><br/>',4,40,4);
+
+insert into recipes values(220,301,'Vegetable Biriyani','In a non-stick vessel or in a big pressure cooker, add the ghee / butter and oil first.<br/><br/>
+When they get heated, add the masala spices first followed by Onion and capsicum. Add  a pinch of salt and fry them till golden brown.<br/><br/>
+Add the grounded paste ( gravy ) into the cooker and fry patiently on low flame till the raw smell is completely gone.<br/><br/>
+Add the cut vegetables into the cooker now and fry them for a minute.<br/><br/>
+Add all the powders into the cooker at this stage and fry everything well for another 2 minutes.<br/><br/>
+Drain all the water from the rice and add them to the cooker and fry it along with all other ingredients till the rice get dried and slightly fried.<br/><br/>
+For 2 cups of Sona Masoori Rice, add a cup of thick coconut milk and a cup of little watery coconut milk and 2.5 cups of water.<br/><br/>
+Mix them well and add required amount of salt into the cooker and allow them to cook for just 2 whistles on a medium flame.<br/><br/>
+If you cook the biryani in a Non-stick vessel, then close the lid and allow them to cook on a low flame till the biryani is completely cooked.<br/><br/>
+Switch off the flame after the biryani is done in both the cases and allow the cooker to get cool down completely.<br/><br/>
+After 10-15 minutes, slowly open the cooker and check the Biryani consistency. Keep the lid open for few minutes.<br/><br/>
+Add some fried bread / bun pieces ( if you like ) into the biryani and serve it with cool onion raita.<br/><br/>
+You will definitely enjoy this version of the biryani though it might take little more time.<br/><br/>
+Its a complete meal and an excellent choice for weekend lunch.<br/><br/>',5,65,5);
+
+insert into recipes values(221,302,'Broccoli Chicken Casserole Recipe','1. Preheat oven to 350°. Prepare stuffing mix according to package directions, using 1-1/2 cups water.<br/><br/>
+2. In large bowl, combine chicken, broccoli and soup; transfer to a greased 11x7-in. baking dish. Top with stuffing; sprinkle with cheese. Bake, covered, 20 minutes. Uncover; bake 10-15 minutes or until heated through.<br/><br/>
+3. Freeze option: Cover and freeze unbaked casserole. To use, partially thaw in refrigerator overnight. Remove from refrigerator 30 minutes before baking. Preheat oven to 350°. Bake casserole as directed, increasing time as necessary to heat through and for a thermometer inserted in center to read 165°.<br/><br/>',3,35,6);
+
+insert into recipes values(222,303,'Desert Safe Double Chocolate Brownies','1. PREHEAT oven to 325º F. Grease 9-inch square baking pan.<br/><br/>
+2. COMBINE flour, baking soda and salt in small bowl.<br/><br/>
+3. HEAT shortening, sugar and water in medium saucepan to boiling, stirring constantly. <br/><br/>
+4. Remove from heat. Stir in 1 cup morsels; stir until smooth.<br/><br/>
+5. ADD eggs one at a time, beating well after each addition. Gradually add in flour mixture. <br/><br/>
+6. Stir in remaining morsels. Spread into prepared baking pan.<br/><br/>
+7. BAKE for 30 to 35 minutes or until wooden pick inserted in center comes out slightly sticky.<br/><br/>
+8.Cool completely in pan on wire rack; cut into squares.<br/><br/>',5,30,10);
+
+insert into recipes values(223,303,'Coconut, Cashew, and Pineapple Tart','1. Preheat oven to 375 F. Prepare tart dough according to directions, fit into tart shell and chill until ready to bake. Weight tart dough with pie weights or dried beans, par-bake crust for 15 minutes, until firm but not browned.<br/><br/>
+2. Meanwhille, place dried fruit and rum in a small bowl or saucepan and heat briefly on the stove or in the microwave, until just until warm- do not boil. Set aside to allow some of the rum seep into the fruit.<br/><br/>
+3. In a bowl, beat eggs with honey and sugar until the mixture is thick. Add the butter. Fold in the coconut and nuts, then add the fruit with the rum.<br/><br/>
+4. Pour into the prepared tart shell, place tart on a baking sheet in the center of the oven. Bake 25-35 minutes, until the filling is firm and the top is deeply golden, watch to make sure the nuts dont burn. Let cool completely before serving.<br/><br/>',4,70,10);
+
+insert into recipes values(224,301,'CrispyBakedHoneyGarlicChicken','Preheat oven to 400 degrees F. Lightly grease a large baking sheet, or cover with parchment paper.<br/><br/>
+In separate shallow dishes, place beaten eggs and panko breadcrumbs. In batches, dip chicken into eggs (shaking off excess), then coat in crumbs, pressing to coat.<br/><br/>
+Place pieces on baking sheet. Bake until golden brown and crisp, about 15 minutes.<br/><br/>
+Meanwhile, in a medium saucepan set to medium-high heat, whisk honey, soy sauce, Sriracha and garlic powder. In a small bowl, combine cornstarch and 1/3 cup water. Stir mixture into saucepan until thickened, about 1-2 minutes. Pour over chicken and gently toss to combine.<br/><br/>
+Serve immediately over rice, topped with green onions and sesame seeds, if desired.<br/><br/>',4,40,4);
+
+insert into recipes values(225,301,'sweet potato lime taquitos','1.Heat a medium pot of salted water to a boil. Once boiling drop the potatoes into the water and reduce the heat to a simmer. Cook for 15 minutes or until the potatoes are easily pierced with a fork. Drain, return the potatoes to the pot and combine with the vegan butter, cinnamon, cumin, and salt.<br/><br/>
+2.In a small bowl, combine the red onion, chopped cilantro, and lime juice. Set aside to marinate, stirring occasionally.<br/><br/>
+3.In a large heavy skillet, heat ¼-inch of oil over medium heat. Working with one tortilla at a time, rub the fleshy side of half of a lime over the tortilla then spread 1 heaping tablespoon of mashed sweet potatoes and half of a tablespoon of the onion, cilantro, and lime mixture evenly along one side of the tortilla. Gently roll the tortilla tightly beginning on the side with the filling. Use a toothpick to secure the taquito so it does not unroll while cooking. Corn tortillas have a tendency to dry out quickly and split, so I rolled 4 taquitos then placed them in the hot pan and rolled 4 more while the others were cooking until they were all finished.<br/><br/>
+4.Place the prepared taquitos seam side down in the hot oil and cook, rotating with tongs, until they are golden brown and crispy on all sides, approximately 4 to 5 minutes per batch. Continue to cook the rest of the taquitos in batches, adding more oil as needed. Remove the toothpicks after you have fried them and serve with Avocado Dipping Sauce, lettuce, halved cherry tomatoes, cilantro, hot sauce, and lime wedges.<br/><br/>',3,55,4);
+
+
+
 
 
 

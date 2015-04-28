@@ -1,0 +1,51 @@
+{% extends "layout.html" %}
+
+{% block body %}
+{% if error %}<p class=error><strong>Error:</strong> {{ error }}{% endif %}
+
+<script type='text/javascript'>
+    var main = function(){
+        $("#select-group").on('change',function(){
+            $("#select-members").empty();
+            var category_name=$(this).val();
+            var data = {{ jsondump|tojson|safe }};
+			console.log(data)
+            var data1 = JSON.parse(data);
+            var recipe_list = data1[category_name];
+			console.log(recipe_list.length)
+            for (var i = 0; i < recipe_list.length; i++) {
+				$("#select-members").append($('<option></option>').val(recipe_list[i]).html(recipe_list[i]).attr("name",recipe_list[i]));
+            }
+        });
+    }
+    $(document).ready(main);
+ </script>
+
+<div id='content' data-role='content' style="text-align: center;">
+    <form action="{{ url_for('add_recipe') }}" method=post>
+        <div style="margin-top:15%; width:30%; height:30%;margin-left:35%;margin-right:30%;font-family:Comic Sans MS, Comic Sans;" >
+            <div>
+                <h2>Add your Recipe</h2>
+            </div>
+            <dl>
+				<!--input type=hidden name=ingredients value="ingredients"></input>
+                <input type=hidden name=recipe_name value="recipe_name"></input-->
+                <label for="select-group" class="select">Select Category:</label>
+                <select name="select-group" id="select-group">
+                    <option value="default">Select a Category</option>
+                    {% for c in category %}
+						{% for x in c %}
+							<option value="{{ x }}">{{ x }}</option>
+						{% endfor %}
+                    {% endfor %}
+                </select>
+				</br>
+                <label for="select-members" class="select">Select Recipe:</label>
+                <select name="select-members" id="select-members">
+                </select>
+                <input name=add_recipe type=submit value=save></input>
+            </dl>
+        </div>
+    </form>
+</div>
+{% endblock %}

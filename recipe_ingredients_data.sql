@@ -1,3 +1,13 @@
+insert into recipe_ingredients values(201,400,'3 cups cake flour (or 2 3/4 cup all-purpose flour)');
+insert into recipe_ingredients values(201,401,'1 Tbsp. baking powder');
+insert into recipe_ingredients values(201,402,'1/2 tsp. salt');
+insert into recipe_ingredients values(201,403,'16 Tbsp. unsalted butter, at room temperature (2 sticks)');
+insert into recipe_ingredients values(201,404,'2 cups sugar');
+insert into recipe_ingredients values(201,405,'5 large eggs, at room temperature');
+insert into recipe_ingredients values(201,406,'1 1/4 cups buttermilk, at room temperature');
+insert into recipe_ingredients values(201,407,'for serving');
+insert into recipe_ingredients values(201,408,'1 tbsp. vanilla extract');
+
 insert into recipe_ingredients values(202,409,'1 1/2 cups');
 insert into recipe_ingredients values(202,410,'1/4 cup');
 insert into recipe_ingredients values(202,411,'pinch');
@@ -7,3 +17,74 @@ insert into recipe_ingredients values(202,413,'2 14-ounce cans');
 insert into recipe_ingredients values(202,414,'1 1/4 cups');
 insert into recipe_ingredients values(202,415,'for serving');
 insert into recipe_ingredients values(202,416,'for garnish');
+
+insert into recipe_ingredients values(203,417,'1 box yellow cake mix');
+insert into recipe_ingredients values(203,418,'1/2 cup butter softened Tasty tip');
+insert into recipe_ingredients values(203,419,'1 eggs');
+insert into recipe_ingredients values(203,420,'2/3 cup sprinkles divided into two 1/3 cups');
+insert into recipe_ingredients values(203,421,'1/2 cup sweetened condensed milk');
+insert into recipe_ingredients values(203,422,'1 cup white chocolate chips');
+
+insert into recipe_ingredients values(204,423,'3/4 cup sugar');
+insert into recipe_ingredients values(204,424,'1/2 cup butter one 4 oz. stick Tasty tip');
+insert into recipe_ingredients values(204,425,'2 eggs');
+insert into recipe_ingredients values(204,426,'3 bananas medium ripe, smashed');
+insert into recipe_ingredients values(204,427,'1 tbsp imitation vanilla extract ');
+insert into recipe_ingredients values(204,428,'11/2 cups white flour all-purpose');
+insert into recipe_ingredients values(204,429,'1 cup chopped walnuts');
+insert into recipe_ingredients values(204,430,'1/2 tsp baking soda');
+insert into recipe_ingredients values(204,431,'1/2 tsp salt');
+insert into recipe_ingredients values(204,432,'1 tsp ground cinnamon');
+
+insert into recipe_ingredients values(205,433,'4 cups all-purpose flour');
+insert into recipe_ingredients values(205,434,'1/2 tsp instant yeast');
+insert into recipe_ingredients values(205,435,'1 tsp salt');
+insert into recipe_ingredients values(205,436,'11/4 cups milk');
+insert into recipe_ingredients values(205,437,'1/4 cup greek style plain yogurt');
+insert into recipe_ingredients values(205,438,'1 tsp sugar');
+insert into recipe_ingredients values(205,439,'1/8 tsp ground cardamom');
+insert into recipe_ingredients values(205,440,'1/8 tsp ground turmeric');
+insert into recipe_ingredients values(205,441,'4 tbsps ghee melted, or butter');
+
+insert into recipe_ingredients values(206,442,'2 tbsps grapeseed oil organic');
+insert into recipe_ingredients values(206,443,'1/4 cup chopped fresh sage  finely ');
+insert into recipe_ingredients values(206,444,'2 lbs butternut squash  ; peeled, seeded, and cut into small ½-inch pieces, about 3 cups ');
+insert into recipe_ingredients values(206,445,'1 yellow onion  medium, ; chopped ');
+insert into recipe_ingredients values(206,446,'3 garlic cloves  ; pressed and minced ');
+insert into recipe_ingredients values(206,447,'1/4 tsp red pepper flakes  optional ');
+insert into recipe_ingredients values(206,448,'2 cups low sodium vegetable broth');
+insert into recipe_ingredients values(206,449,'4 tbsps ghee melted, or butter');
+insert into recipe_ingredients values(206,450,'1 pkg gluten  free linguine');
+insert into recipe_ingredients values(206,451,'1/2 cup raw cashews');
+insert into recipe_ingredients values(206,452,'2 cups water');
+insert into recipe_ingredients values(206,453,'1 tbsp lemon juice');
+insert into recipe_ingredients values(206,454,'2 tsps Himalayan salt pink, and additional to taste');
+insert into recipe_ingredients values(206,455,'ground black pepper Freshly');
+
+insert into recipe_ingredients values(207,456,'1 pkg gluten  free linguine');
+insert into recipe_ingredients values(207,457,'1/2 cup raw cashews');
+insert into recipe_ingredients values(207,458,'2 cups water');
+insert into recipe_ingredients values(207,459,'1 tbsp lemon juice');
+insert into recipe_ingredients values(207,460,'2 tsps Himalayan salt pink, and additional to taste');
+insert into recipe_ingredients values(207,461,'ground black pepper Freshly');
+insert into recipe_ingredients values(207,462,'1 pkg gluten  free linguine');
+insert into recipe_ingredients values(207,463,'1/2 cup raw cashews');
+insert into recipe_ingredients values(207,464,'2 cups water');
+insert into recipe_ingredients values(207,465,'1 tbsp lemon juice');
+insert into recipe_ingredients values(207,466,'2 tsps Himalayan salt pink, and additional to taste');
+insert into recipe_ingredients values(207,467,'ground black pepper Freshly');
+
+insert into recipe_ingredients values(208,468,'"1 lb boneless skinless chicken breasts  cut into 1-inch chunks ');
+insert into recipe_ingredients values(208,469,'2 large eggs  beaten ');
+insert into recipe_ingredients values(208,470,'1 cup panko breadcrumbs');
+insert into recipe_ingredients values(208,471,'1/3 cup honey');
+insert into recipe_ingredients values(208,472,'2 tbsps soy sauce');
+insert into recipe_ingredients values(208,473,'1 tbsp Sriracha');
+insert into recipe_ingredients values(208,474,'1/2 tsp garlic powder');
+insert into recipe_ingredients values(208,475,'1 tbsp lemon juice');
+insert into recipe_ingredients values(208,476,'1/3 cup warm water');
+insert into recipe_ingredients values(208,477,'ground black pepper Freshly');
+insert into recipe_ingredients values(208,478,'1 tbsp corn starch');
+insert into recipe_ingredients values(208,479,'2 green onions  thinly sliced ');
+insert into recipe_ingredients values(208,480,'2 tsps sesame seeds');
+

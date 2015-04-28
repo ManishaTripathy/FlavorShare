@@ -279,36 +279,67 @@ def group_summary_init():
 	cur_details=g.db.execute('select description,venue,eventdate from groups where gid in (select gid from groups where name =\"' + group+ '\")')
 	mids = [row for row in cur_details.fetchall()]
 	mid=mids[0]
-	groups = [dict(gname=group)]
-	names = [dict(name=row[0]) for row in cur.fetchall()]
 	desc=[dict(desc=row[0]) for row in mids]
 	venue=[dict(venue=row[1]) for row in mids]
 	eventdate=[dict(eventdate=row[2]) for row in mids]
-	return render_template('group_summary.html',groups=groups,names=names,desc=desc,venue=venue,eventdate=eventdate)
+
+	groups = [dict(gname=group)]
+	names = [dict(name=row[0]) for row in cur.fetchall()]
+
+	category_details=g.db.execute('select category.name,group_category.no_of_items from category,group_category where category.cid=group_category.cid and category.cid in(select cid from group_category where no_of_items>0 and gid in (select gid from groups where name=\"' + group+ '\"))')
+	categories = [row for row in category_details.fetchall()]
+	cat_name={row[0]:row[1] for row in categories}
+
+	return render_template('group_summary.html',groups=groups,names=names,desc=desc,venue=venue,eventdate=eventdate,cat_name=cat_name)
 
 @app.route('/group_summary', methods=['POST'])
 def group_summary():
     error = None
     if request.method == 'POST':
-		if 'member' in request.form:
+        group = session['gname']
+        if 'member' in request.form:
 			print request.form['member']
 			memberName = request.form['member']
 			g.db.execute('delete from group_members where mid in ((select mid from users where name=\"' + memberName+ '\"))')
 			g.db.commit()
 			return redirect(url_for('group_summary_init',groups=session['gname']))
-		elif 'edit' in request.form:
+        elif 'edit' in request.form:
 			return redirect(url_for('group_members_summaryPage'))
-		elif 'done' in request.form:
+        elif 'done' in request.form:
 			return redirect(url_for('group_listingPage'))
-		elif 'addrecipe' in request.form:
-			#category = "Main Course"
-			list = ['1','2']
-			category = [dict(name="Main Course")]
-			recipe=[dict(rname=row[0]) for row in list]
-			#desc=[dict(desc=row[0]) for row in mids]
-			#category = [dict(name=session['grpname'])]
-			return render_template('add_recipe.html',recipe=recipe,category=category)
-			#return redirect(url_for('add_recipePage'),recipe=recipe,category=category)
+        elif 'addrecipe' in request.form:
+			cur_category_name = g.db.execute('select category.name from category,group_category where category.cid=group_category.cid and group_category.no_of_items>0 and group_category.gid in (select gid from groups where name=\"' + group+ '\")')
+			category = [row for row in cur_category_name.fetchall()]
+
+			recipe_list = {}
+			for name in category:
+			    print "hello i am here"
+			    print name
+			    cur_recipe = g.db.execute('select name from recipes where cid in (select cid from category where name=\''+str(name[0])+'\')')
+			    recipe_name = [row for row in cur_recipe.fetchall()]
+			    recipes = [recipe[0] for recipe in recipe_name]
+			    recipe_list[name[0]] = recipes
+
+			print recipe_list
+			jsondump = json.dumps(recipe_list)
+			print jsondump
+			#print recipe
+			return render_template('add_recipe.html',category=category,jsondump=jsondump,recipe_list=recipe_list)
+
+@app.route('/add_recipe')
+def add_recipePage():
+    error = None
+    return render_template('add_recipe.html')
+
+@app.route('/add_recipe', methods=['POST'])
+def add_recipe():
+    error = None
+    if request.method == 'POST':
+        if request.form['add_recipe'] == "save":
+			flash('Successfully Created');
+			return redirect(url_for('group_summary_init',groups=session['gname']))
+			#return redirect(url_for('homePage'))
+
 
 
 @app.route('/group_config')
@@ -324,8 +355,8 @@ def group_config():
     error = None
     if request.method == 'POST':
         if request.form['finish_group'] == "save":
-            for i in range(1,11) :
-                f = "category{0}".format(i)
+            for i in range(301,311) :
+                f = "category{000}".format(i)
                 g.db.execute('insert into group_category(gid,cid,no_of_items) values ((select gid from groups where name=\"' + session['grpname']+ '\"),'+str(i)+', '+request.form[f]+')')
                 g.db.commit()
             return redirect(url_for('homePage'))
