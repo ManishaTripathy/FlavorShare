@@ -32,8 +32,8 @@
         	    {% for r in names %}
         		<li><label><button text-pos="left" data-icon="delete" data-iconpos="right" type="text" name="member" value="{{ r.name }}" style="text-align:left"/>{{ r.name }}</button></label></li>
             		<!--li><label><input type="checkbox" name="checkbox-0" value="{{ r.name }}"/>{{ r.name }}</label></li-->
-            		{% endfor %}
-            	    <button name="edit" value="add" data-icon="plus">Add Member</a>
+            	{% endfor %}
+            	<button name="edit" value="add" data-icon="plus">Add Member</a>
             	</li>
         	</ul>
     	 </li>
@@ -49,16 +49,16 @@
 						{% if category in category_recipe_list.keys() %}
 						<ul data-role="listview" data-inset="true" data-icon="star">
 						    {% for recipes in category_recipe_list[category] %}
-    						    <li><label><input type="checkbox" name="checkbox-0" value="{{ recipes }}" />{{ recipes }}</label></label></li>
+    						    <li><label><input type="checkbox" name="checkbox-recipe" value="{{ recipes }}" />{{ recipes }}</label></label></li>
     						{% endfor %}
-    						<button name="remove_recipe" value="remove_recipe" data-icon="minus">Remove this item</a>
-    						<!--<a href="index.html" data-role="button" data-icon="delete">Remove this item</a>-->
+    						<!--<a href="#" data-role="button" data-icon="delete">Remove selected item(s)</a>-->
     					</ul>
     					{% endif %}
 					</li>
 				<!--</ul>-->
 			</ul>
             {% endfor %}
+    		<button name="remove_recipe" value="remove_recipe" data-icon="minus">Remove this item</a>
 		</li>
 		</li>
 		</ul>

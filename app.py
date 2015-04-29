@@ -320,14 +320,24 @@ def group_summary():
     error = None
     if request.method == 'POST':
         group = session['gname']
+        print group
+        #print request.form['remove_recipe']
         if 'member' in request.form:
 			print request.form['member']
 			memberName = request.form['member']
-			g.db.execute('delete from group_members where mid in ((select mid from users where name=\"' + memberName+ '\"))')
+			g.db.execute('delete from group_members where gid in (select gid from groups where name=\"' + group+ '\") and mid in ((select mid from users where name=\"' + memberName+ '\"))')
 			g.db.commit()
 			return redirect(url_for('group_summary_init',groups=session['gname']))
         elif 'edit' in request.form:
 			return redirect(url_for('group_members_summaryPage'))
+        elif 'remove_recipe' in request.form:
+			print "Akshay!!!"
+			checked_recipes = request.form.getlist('checkbox-recipe')
+			print checked_recipes
+			for recipe in checked_recipes :
+			    g.db.execute('delete from group_category_recipes where gid in (select gid from groups where name=\"' + group+ '\") and rid in ((select rid from recipes where name=\"' + recipe+ '\"))')
+			    g.db.commit()
+			return redirect(url_for('group_summary_init',groups=session['gname']))
         elif 'done' in request.form:
 			return redirect(url_for('group_listingPage'))
         elif 'addrecipe' in request.form:

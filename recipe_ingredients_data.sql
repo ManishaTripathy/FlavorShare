@@ -151,8 +151,130 @@ insert into recipe_ingredients values(216,535,'4 cups ');
 insert into recipe_ingredients values(216,536,'1 medium ');
 insert into recipe_ingredients values(216,537,'1/2 cup ');
 
-insert into recipe_ingredients values(217,527,' ');
-insert into recipe_ingredients values(217,527,' ');
+insert into recipe_ingredients values(217,538,'1 lb ');
+insert into recipe_ingredients values(217,539,'1 ');
+insert into recipe_ingredients values(217,540,'1/4 cup ');
+insert into recipe_ingredients values(217,541,'5 cloves ');
+insert into recipe_ingredients values(217,542,'11/2 tbsps ');
+insert into recipe_ingredients values(217,543,'13/4 tsps ');
+insert into recipe_ingredients values(217,544,'2 tsps ');
+insert into recipe_ingredients values(217,545,'1 tsp ');
+insert into recipe_ingredients values(217,546,'1/4 tsp ');
+insert into recipe_ingredients values(217,547,'1/4 tsp ');
+insert into recipe_ingredients values(217,548,'1 pinch ');
+insert into recipe_ingredients values(217,549,'1 ');
+
+insert into recipe_ingredients values(218,550,'3 tbsp ');
+insert into recipe_ingredients values(218,551,'1/2 ');
+insert into recipe_ingredients values(218,552,'1 ');
+insert into recipe_ingredients values(218,553,'2 ');
+insert into recipe_ingredients values(218,554,'1 ');
+insert into recipe_ingredients values(218,555,'1 ');
+insert into recipe_ingredients values(218,556,'1 32oz ');
+insert into recipe_ingredients values(218,557,'2 tbsp ');
+insert into recipe_ingredients values(218,558,'1/2 tsp ');
+insert into recipe_ingredients values(218,559,'1 tsp ');
+insert into recipe_ingredients values(218,560,'some ');
+insert into recipe_ingredients values(218,561,'3 to 4 ');
+insert into recipe_ingredients values(218,562,'about 2 tbsp ');
+insert into recipe_ingredients values(218,563,'optional ');
+
+insert into recipe_ingredients values(219,564,'1 Cup ');
+insert into recipe_ingredients values(219,565,'½ Cup ');
+insert into recipe_ingredients values(219,566,'¼ Cup ');
+insert into recipe_ingredients values(219,567,'1 Tsp ');
+insert into recipe_ingredients values(219,568,'4 Tbsp ');
+insert into recipe_ingredients values(219,569,'¼ Cup ');
+insert into recipe_ingredients values(219,570,'2 ');
+insert into recipe_ingredients values(219,571,'2 ');
+insert into recipe_ingredients values(219,572,'1 ');
+insert into recipe_ingredients values(219,573,'1/2 ');
+insert into recipe_ingredients values(219,574,'2 to 3 ');
+insert into recipe_ingredients values(219,575,'1 Tsp ');
+insert into recipe_ingredients values(219,576,'1/2 Tsp ');
+insert into recipe_ingredients values(219,577,'1 Tsp ');
+insert into recipe_ingredients values(219,578,'1 Tbsp ');
+insert into recipe_ingredients values(219,579,'1 Tbsp ');
+insert into recipe_ingredients values(219,580,'1 Tsp ');
+insert into recipe_ingredients values(219,581,'2 Tsp ');
+
+insert into recipe_ingredients values(220,582,'1 Medium ');
+insert into recipe_ingredients values(220,583,'1/2 finely shredded or cut ');
+insert into recipe_ingredients values(220,584,'1 medium ');
+insert into recipe_ingredients values(220,585,'15 to 20 cut into finger size ');
+insert into recipe_ingredients values(220,586,'1 Big ');
+insert into recipe_ingredients values(220,587,'1 Cup ');
+insert into recipe_ingredients values(220,588,'2 tsp ');
+insert into recipe_ingredients values(220,589,'1 ');
+insert into recipe_ingredients values(220,590,'1 ');
+insert into recipe_ingredients values(220,591,'2 tsp ');
+insert into recipe_ingredients values(220,592,'1 tsp ');
+insert into recipe_ingredients values(220,593,'3 or 4 ');
+insert into recipe_ingredients values(220,594,'1 Big Tumbler / Glass ');
+insert into recipe_ingredients values(220,595,'2 Cups ');
+insert into recipe_ingredients values(220,596,'To Taste ');
+insert into recipe_ingredients values(220,597,'1 tsp ');
+insert into recipe_ingredients values(220,598,'1 tsp ');
+insert into recipe_ingredients values(220,599,'2 tsp ');
+insert into recipe_ingredients values(220,600,'2 tsp ');
+insert into recipe_ingredients values(220,601,'2 tbsp ');
+insert into recipe_ingredients values(220,602,'2 Medium ');
+insert into recipe_ingredients values(220,603,'5 to 6 stems ');
+insert into recipe_ingredients values(220,604,'2 small pieces ');
+insert into recipe_ingredients values(220,605,'1 Cup ');
+
+insert into recipe_ingredients values(221,606,'1 package or 6 ounces ');
+insert into recipe_ingredients values(221,607,'2 cups ');
+insert into recipe_ingredients values(221,608,'1 cup ');
+insert into recipe_ingredients values(221,609,'1 can or 10 to 3/4 ounces ');
+insert into recipe_ingredients values(221,610,'1 cup or 4 ounces ');
+
+insert into recipe_ingredients values(222,611,'3⁄4 cup ');
+insert into recipe_ingredients values(222,612,'1⁄4 teaspoon ');
+insert into recipe_ingredients values(222,613,'1⁄4 teaspoon ');
+insert into recipe_ingredients values(222,614,'1⁄3 cup ');
+insert into recipe_ingredients values(222,615,'3⁄4 cup ');
+insert into recipe_ingredients values(222,616,'2  tablespoons ');
+insert into recipe_ingredients values(222,617,'2  cups ');
+insert into recipe_ingredients values(222,618,'2 ');
+
+insert into recipe_ingredients values(223,619,'1 ');
+insert into recipe_ingredients values(223,620,'2 ');
+insert into recipe_ingredients values(223,621,'1/2 cup ');
+insert into recipe_ingredients values(223,622,'1/4 cup ');
+insert into recipe_ingredients values(223,623,'2 tablespoons ');
+insert into recipe_ingredients values(223,624,'1/4 cup ');
+insert into recipe_ingredients values(223,625,'1 cup ');
+insert into recipe_ingredients values(223,626,'3/4 cup ');
+insert into recipe_ingredients values(223,627,'1/8 teaspoon ');
+insert into recipe_ingredients values(223,628,'1 cup ');
+
+insert into recipe_ingredients values(224,629,'1 pound ');
+insert into recipe_ingredients values(224,630,'2 ');
+insert into recipe_ingredients values(224,631,'1 cup ');
+insert into recipe_ingredients values(224,632,'1/3 cup ');
+insert into recipe_ingredients values(224,633,'2 Tablespoons ');
+insert into recipe_ingredients values(224,634,'1 Tablespoon ');
+insert into recipe_ingredients values(224,635,'1/2 teaspoon ');
+insert into recipe_ingredients values(224,636,'1/3 cup ');
+insert into recipe_ingredients values(224,637,'1 Tablespoon ');
+insert into recipe_ingredients values(224,638,'2 ');
+insert into recipe_ingredients values(224,639,'2 ');
+
+insert into recipe_ingredients values(225,640,'1.5 pounds ');
+insert into recipe_ingredients values(225,641,'2 tablespoon ');
+insert into recipe_ingredients values(225,642,'¼ teaspoon ');
+insert into recipe_ingredients values(225,643,'½ teaspoon ');
+insert into recipe_ingredients values(225,644,'½ teaspoon ');
+insert into recipe_ingredients values(225,645,'½ cup ');
+insert into recipe_ingredients values(225,646,'¼ cup ');
+insert into recipe_ingredients values(225,647,'2 ');
+insert into recipe_ingredients values(225,648,'12 to 14 ');
+insert into recipe_ingredients values(225,649,'for pan frying ');
+insert into recipe_ingredients values(225,650,'');
+insert into recipe_ingredients values(225,651,'');
+
+
 
 
 

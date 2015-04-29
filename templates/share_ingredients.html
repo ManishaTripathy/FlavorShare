@@ -1,6 +1,6 @@
 {% extends "layout.html" %}
 
-{% block body %}
+{% block body %} {{super()}}
 {% if error %}<p class=error><strong>Error:</strong> {{ error }}{% endif %}
 
 <script type='text/javascript'>

@@ -53,10 +53,12 @@
 					</div>
 				</div>
 			</div>
-            {% for message in get_flashed_messages() %}
-                <div class=flash>{{ message }}</div>
-            {% endfor %}
-            {% block body %}{% endblock %}
+
+            {% block body %}
+                {% for message in get_flashed_messages() %}
+                    <div class=flash>{{ message }}</div>
+                {% endfor %}
+            {% endblock %}
 		</div>
 	</body>
 </html>
