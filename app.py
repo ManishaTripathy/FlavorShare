@@ -336,9 +336,33 @@ def add_recipe():
     error = None
     if request.method == 'POST':
         if request.form['add_recipe'] == "save":
-			flash('Successfully Created');
-			return redirect(url_for('group_summary_init',groups=session['gname']))
-			#return redirect(url_for('homePage'))
+            category_name = request.form['select-group']
+            recipe_name =  request.form['select-members']
+            print "In add recipe"
+            print category_name
+            print recipe_name
+            group = session['gname']
+            cur = g.db.execute('select mid from users where email = \''+ session.get('username') + '\'')
+            mids = [row for row in cur.fetchall()]
+            mid=mids[0]
+            print mid[0]
+            cur_gid=g.db.execute('select gid from groups where name = \''+group + '\'')
+            gids = [row for row in cur_gid.fetchall()]
+            gid=gids[0]
+            print gid[0]
+            cur_cid=g.db.execute('select cid from category where name = \''+category_name + '\'')
+            cids = [row for row in cur_cid.fetchall()]
+            cid=cids[0]
+            print cid[0]
+            cur_rid=g.db.execute('select rid from recipes where name = \''+recipe_name + '\'')
+            rids = [row for row in cur_rid.fetchall()]
+            rid=rids[0]
+            print rid[0]
+            g.db.execute('insert into group_category_recipes(gid,cid,rid,mid) values('+str(gid[0])+','+str(cid[0])+','+str(rid[0])+',' + str(mid[0])+')')
+            g.db.commit()
+            flash('Successfully Created');
+            return redirect(url_for('group_summary_init',groups=session['gname']))
+            #return redirect(url_for('homePage'))
 
 
 
