@@ -126,6 +126,17 @@ def logout():
     session.pop('logged_in', None)
     return redirect(url_for('main_page'))
 
+@app.route('/myProfile')
+def myProfile():
+    error = None
+    if not session.get('logged_in'):
+        return render_template('login_or_register.html')
+    user_email = session.get('username')
+    cur_users = g.db.execute('select name from users where email = \''+ session.get('username') + '\'')
+    user_name = [row for row in cur_users.fetchall()]
+    user_name=user_name[0]
+    return render_template('my_profile.html',user_name=user_name, user_email=user_email)
+
 @app.route('/group_listing')
 def group_listingPage():
     error = None
@@ -212,10 +223,13 @@ def group_members_summary():
         if request.form['group_summary'] == "next":
 			for i in range(1,6) :
 				f = "email{0}".format(i)
-				g.db.execute('insert into group_members(mid,gid) values ((select mid from users where email=\"' + request.form[f]+ '\") ,(select gid from groups where name=\"' + session['gname']+ '\"))')
+				print "Printing f"
+				print request.form[f]
+				if request.form[f]:
+				    g.db.execute('insert into group_members(mid,gid) values ((select mid from users where email=\"' + request.form[f]+ '\") ,(select gid from groups where name=\"' + session['gname']+ '\"))')
 
 			#g.db.execute('insert into group_members(mid,gid) values ((select mid from users where email=\"' + request.form['email']+ '\") ,(select gid from groups where name=\"' + session['gname']+ '\"))')
-			g.db.commit()
+			        g.db.commit()
 
 			flash('Successfully Created')
 			return redirect(url_for('group_summary_init',groups=session['gname']))
@@ -290,7 +304,16 @@ def group_summary_init():
 	categories = [row for row in category_details.fetchall()]
 	cat_name={row[0]:row[1] for row in categories}
 
-	return render_template('group_summary.html',groups=groups,names=names,desc=desc,venue=venue,eventdate=eventdate,cat_name=cat_name)
+	category_recipe_details=g.db.execute('select category.name,recipes.name from category,group_category_recipes,recipes where category.cid=group_category_recipes.cid and recipes.rid=group_category_recipes.rid and gid in (select gid from groups where name=\"' + group+ '\") and category.cid not in (307,308,309,310)')
+	category_recipe = [row for row in category_recipe_details.fetchall()]
+	category_recipe_list={}
+	for item in category_recipe:
+	    if item[0] in category_recipe_list:
+	        category_recipe_list[item[0]].append(item[1])
+	    else :
+	        category_recipe_list[item[0]]=[item[1]]
+
+	return render_template('group_summary.html',groups=groups,names=names,desc=desc,venue=venue,eventdate=eventdate,cat_name=cat_name,category_recipe_list=category_recipe_list)
 
 @app.route('/group_summary', methods=['POST'])
 def group_summary():
@@ -308,7 +331,7 @@ def group_summary():
         elif 'done' in request.form:
 			return redirect(url_for('group_listingPage'))
         elif 'addrecipe' in request.form:
-			cur_category_name = g.db.execute('select category.name from category,group_category where category.cid=group_category.cid and group_category.no_of_items>0 and group_category.gid in (select gid from groups where name=\"' + group+ '\")')
+			cur_category_name = g.db.execute('select category.name from category,group_category where category.cid=group_category.cid and group_category.no_of_items>0 and category.cid not in (307,308,309,310) and group_category.gid in (select gid from groups where name=\"' + group+ '\")')
 			category = [row for row in cur_category_name.fetchall()]
 
 			recipe_list = {}

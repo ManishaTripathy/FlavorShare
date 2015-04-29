@@ -46,12 +46,15 @@
 				<!--<ul data-role="listview" data-inset="true" data-shadow="false" data-icon="star">-->
 					<li data-role="collapsible" data-iconpos="right" data-inset="false">
 						<h2>{{ category }} <span class="ui-li-count"> {{ cat_name[category] }}</span></h2>
+						{% if category in category_recipe_list.keys() %}
 						<ul data-role="listview" data-inset="true" data-icon="star">
-    						<li><label><input type="checkbox" name="checkbox-0" />Creamy Butternut Sage Linguine</label></label></li>
-    						<li><label><input type="checkbox" name="checkbox-0" />Crispy Baked Honey Garlic Chicken</label></label></li>
-    						<li><label><input type="checkbox" name="checkbox-0" />Sweet and Spicy Tofu</label></label></li>
-    						<a href="index.html" data-role="button" data-icon="delete">Remove this item</a>
+						    {% for recipes in category_recipe_list[category] %}
+    						    <li><label><input type="checkbox" name="checkbox-0" value="{{ recipes }}" />{{ recipes }}</label></label></li>
+    						{% endfor %}
+    						<button name="remove_recipe" value="remove_recipe" data-icon="minus">Remove this item</a>
+    						<!--<a href="index.html" data-role="button" data-icon="delete">Remove this item</a>-->
     					</ul>
+    					{% endif %}
 					</li>
 				<!--</ul>-->
 			</ul>

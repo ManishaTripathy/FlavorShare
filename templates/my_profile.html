@@ -1,14 +1,14 @@
+{% extends "layout.html" %}
+
 {% block body %}
 
 {% if error %}<p class=error><strong>Error:</strong> {{ error }}{% endif %}
 <div id='content' data-role='content' style="text-align: center;">
 <form action="{{ url_for('group_summary') }}" method=post>
-    <div style="margin-top:2%; margin-left:20%; width:60%;font-family:Comic Sans MS, Comic Sans;" >
+    <div style="margin-top:15%; margin-left:20%; width:60%;font-family:Comic Sans MS, Comic Sans;" >
         <ul data-role="listview" data-inset="true" data-icon="star">
-            <li style="text-align: center">Name : {{  }}</li>
-        </ul>
-        <ul data-role="listview" data-inset="true" data-icon="star">
-            <li style="text-align: center">Registered Email : {{  }}</li>
+            <li style="text-align: center">Name : {{ user_name[0] }}</li>
+            <li style="text-align: center">Registered Email : {{ user_email }}</li>
         </ul>
 	<div>
 </form>
