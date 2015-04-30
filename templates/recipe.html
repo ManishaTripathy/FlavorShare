@@ -23,6 +23,11 @@
 <div id='content' data-role='content' style="text-align: center;">
     <form action="{{ url_for('recipePost',recipe_name=recipe_name) }}" id="recipe_form" method=post>
         <div style="margin-top:2%;width:80%;font-family:Comic Sans MS, Comic Sans;margin-left:5%" >
+            {% for message in get_flashed_messages() %}
+                <div class=flash>{{ message }}</div>
+            {% endfor %}
+            {% if error %}<p class=error><strong>Error:</strong> {{ error }}{% endif %}
+
             <div>
                 <h2 style="text-align:left;margin-left:5%;color:white;">{{ recipe_name }}</h2>
             </div>

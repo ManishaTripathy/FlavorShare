@@ -6,8 +6,13 @@
 
 <form action="{{ url_for('group_members_summary') }}" method=post>
     <div style="margin-top:10%; width:30%; height:30%;margin-left:35%;margin-right:30%;font-family:Comic Sans MS, Comic Sans, cursive;" >
-        		<dl>
-				<h2>Enter Group Members</h2>
+            {% for message in get_flashed_messages() %}
+                <div class=flash>{{ message }}</div>
+            {% endfor %}
+            {% if error %}<p class=error><strong>Error:</strong> {{ error }}{% endif %}
+
+        	<dl>
+			<h2>Enter Group Members</h2>
 			<div id='TextBoxesGroup' data-role="controlgroup" data-type="horizontal">
 			<div id="TextBoxDiv1">
 			<label>Email  : </label><input type=text name='email1' id='email' />

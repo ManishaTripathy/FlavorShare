@@ -80,8 +80,8 @@ def register():
                 flash('Successfully Registered')
                 return redirect(url_for('homePage'))
             else :
-                flash('Incorrect Details')
-                return redirect(url_for('register'))
+                error='Incorrect Details'
+                return redirect(url_for('register'),error=error)
 
 @app.route('/login')
 def loginPage():
@@ -105,8 +105,8 @@ def login():
                 session['logged_in'] = True
                 return redirect(url_for('homePage'))
             if not user_detail:
-                flash('Invalid Log In')
-                return render_template('login.html')
+                error='Invalid Login Details'
+                return render_template('login.html',error=error)
 
 @app.route('/home')
 def homePage():
@@ -203,7 +203,6 @@ def add_group():
 			g.db.execute('insert into groups (name,admin_id, description, venue, eventdate) values (?,%d,?,?,?)'%mid,[ request.form['name'],request.form['description'],request.form['venue'],request.form['eventdate'] ])
 			g.db.commit()
 			#print gname
-			flash('Successfully Created')
 			return redirect(url_for('group_membersPage'))
 		else:
 			flash('Try Again')
@@ -231,7 +230,7 @@ def group_members_summary():
 			#g.db.execute('insert into group_members(mid,gid) values ((select mid from users where email=\"' + request.form['email']+ '\") ,(select gid from groups where name=\"' + session['gname']+ '\"))')
 			        g.db.commit()
 
-			flash('Successfully Created')
+			flash('Group Member Added Successfully')
 			return redirect(url_for('group_summary_init',groups=session['gname']))
 
 @app.route('/group_members')
@@ -255,8 +254,7 @@ def group_members():
 			#g.db.execute('insert into group_members(mid,gid) values ((select mid from users where email=\"' + request.form['email']+ '\") ,(select gid from groups where name=\"' + session['gname']+ '\"))')
 			g.db.commit()
 			print "go to hell"
-
-			flash('Successfully Created')
+			flash('Group Members Added Successfully')
 			return redirect(url_for('display_group_membersPage'))
 
 @app.route('/display_group_members')
@@ -327,6 +325,7 @@ def group_summary():
 			memberName = request.form['member']
 			g.db.execute('delete from group_members where gid in (select gid from groups where name=\"' + group+ '\") and mid in ((select mid from users where name=\"' + memberName+ '\"))')
 			g.db.commit()
+			flash('Group Member Deleted Successfully')
 			return redirect(url_for('group_summary_init',groups=session['gname']))
         elif 'edit' in request.form:
 			return redirect(url_for('group_members_summaryPage'))
@@ -337,6 +336,7 @@ def group_summary():
 			for recipe in checked_recipes :
 			    g.db.execute('delete from group_category_recipes where gid in (select gid from groups where name=\"' + group+ '\") and rid in ((select rid from recipes where name=\"' + recipe+ '\"))')
 			    g.db.commit()
+			flash('Recipes Deleted Successfully')
 			return redirect(url_for('group_summary_init',groups=session['gname']))
         elif 'done' in request.form:
 			return redirect(url_for('group_listingPage'))
@@ -393,7 +393,7 @@ def add_recipe():
             print rid[0]
             g.db.execute('insert into group_category_recipes(gid,cid,rid,mid) values('+str(gid[0])+','+str(cid[0])+','+str(rid[0])+',' + str(mid[0])+')')
             g.db.commit()
-            flash('Successfully Created');
+            flash('Recipe Added Successfully')
             return redirect(url_for('group_summary_init',groups=session['gname']))
             #return redirect(url_for('homePage'))
 
@@ -416,6 +416,7 @@ def group_config():
                 f = "category{000}".format(i)
                 g.db.execute('insert into group_category(gid,cid,no_of_items) values ((select gid from groups where name=\"' + session['grpname']+ '\"),'+str(i)+', '+request.form[f]+')')
                 g.db.commit()
+            flash('Group Created Successfully')
             return redirect(url_for('homePage'))
 
 @app.route('/saved_recipes')
@@ -474,6 +475,7 @@ def recipePost(recipe_name):
             for i in value:
                 g.db.execute('insert into my_saved_bag(mid,rid,ingredient) values('+str(mid[0])+','+str(rid[0])+ ',' +'\"'+i+'\")')
             g.db.commit()
+            flash('Ingredients Saved to My Bag')
 
             return redirect(url_for('showBag'))
         elif request.form['save_or_share'] == "Share":
@@ -545,12 +547,13 @@ def share():
         print i
         g.db.execute('insert into my_shared_bag(mid_assignee,mid_assignor,rid,gid,ingredient) values('+str(mid_assignee[0])+','+str(mid[0])+','+str(rid[0])+',' + str(gid[0])+ ',' +'\"'+i+'\")')
     g.db.commit()
-    return redirect(url_for('showBag'))
+    flash('Ingredients Shared Successfully')
+    return redirect(url_for('homePage'))
 
 @app.route('/showBag')
 def showBag():
     error = None
-
+    print "IN SHOWBAG"
     cur_users = g.db.execute('select mid from users where email = \''+ session.get('username') + '\'')
     mids = [row for row in cur_users.fetchall()]
     mid=mids[0]
@@ -578,16 +581,28 @@ def showBag():
 
     return render_template('showBag.html', saved_bag = saved_bag,shared_bag = shared_bag)
 
-'''@app.route('/showBag', methods=['POST'])
-def showBag():
+@app.route('/showBag', methods=['POST'])
+def showBagPost():
     error = None
+    print "IN SHOWBAG POST"
     if request.method == 'POST':
-        if request.form['showBag'] == "finish":
-			g.db.execute('insert into my_bag (mid_assignee,mid_assignor,iid) values (1, 1, 1)')
-			g.db.commit()
-			g.db.execute('select mid_assignee, mid_assignor, gid from my_bag as m where session["mid"]')
-			flash('Successfully Created')
-			return redirect(url_for('showBag'))'''
+        group = session['gname']
+        print group
+        #print request.form['remove_recipe']
+        if 'saved_ingredient' in request.form:
+		    print "In saved_ingredient"
+		    cur_user = g.db.execute('select mid from users where email = \''+ session.get('username') + '\'')
+		    mid = [row for row in cur_user.fetchall()]
+		    mid=mid[0]
+		    ingredient=request.form['saved_ingredient']
+		    print mid[0]
+		    print ingredient
+		    g.db.execute('delete from my_saved_bag where mid=' + str(mid[0]) + ' and ingredient = \'' +  ingredient + '\'' )
+		    g.db.commit()
+		    return redirect(url_for('showBag'))
+        elif 'shared_ingredient' in request.form:
+		    return redirect(url_for('showBag'))
+
 
 if __name__ == '__main__':
     app.debug = True

@@ -16,35 +16,37 @@
 </script>
 
 <div id='content' data-role='content' style="text-align: center;">
-<form>
+<form action="{{ url_for('showBag') }}" method=post>
     <div style="margin-top:2%;width:80%;font-family:Comic Sans MS, Comic Sans;margin-left:5%" >
-    <div data-role="collapsible-set">
-	<div data-role="collapsible" data-theme="b" data-content-theme="d" data-collapsed-icon="arrow-r" data-expanded-icon="arrow-d" data-inset="false">
-		<h2>Saved Lists</h2>
-		<div "collapsible" data-theme="b" data-content-theme="d" data-collapsed-icon="arrow-r" data-expanded-icon="arrow-d" data-inset="false">
-			<ul data-role="listview">
-			{% for ingredient in saved_bag %}
-			    <li name=saved_list data-icon="delete"><a href = "#">{{ ingredient }}</a></li>
-			{% endfor %}
-			</ul>
-		</div>
-	</div><!-- /collapsible -->
-	<div data-role="collapsible" data-theme="b" data-content-theme="d" data-collapsed-icon="arrow-r" data-expanded-icon="arrow-d" data-inset="false">
-		<h2>Shared Lists</h2>
-		<div "collapsible" data-theme="b" data-content-theme="d" data-collapsed-icon="arrow-r" data-expanded-icon="arrow-d" data-inset="false">
-			<ul data-role="listview">
-			{% for item in shared_bag %}
-			    <li name=shared_list data-icon="delete" href = "#" ><a>
-				<h2>{{ item[0] }} - {{ item[1]}}, {{ item[2] }}</h2>
-				<!--<h2>Group Name : {{ item[1] }} </h2>
-				<h2>Member Name : {{ item[2] }} </h2>-->
-				</a></li>
-			{% endfor %}
-			</ul>
-		</div>
-	</div><!-- /collapsible -->
-	</div>
-	</div>
+        {% for message in get_flashed_messages() %}
+            <div class=flash>{{ message }}</div>
+        {% endfor %}
+        {% if error %}<p class=error><strong>Error:</strong> {{ error }}{% endif %}
+
+        <div data-role="collapsible-set">
+            <div data-role="collapsible" data-theme="b" data-content-theme="d" data-collapsed-icon="arrow-r" data-expanded-icon="arrow-d" data-inset="false">
+                <h2>Saved Lists</h2>
+                <div "collapsible" data-theme="b" data-content-theme="d" data-collapsed-icon="arrow-r" data-expanded-icon="arrow-d" data-inset="false">
+                    <ul data-role="listview">
+                        {% for ingredient in saved_bag %}
+                            <li><button text-pos="left" data-icon="delete" data-iconpos="right" type="submit" name="saved_ingredient" value="{{ ingredient }}" style="text-align:left"/>{{ ingredient }}</button></li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div><!-- /collapsible -->
+            <div data-role="collapsible" data-theme="b" data-content-theme="d" data-collapsed-icon="arrow-r" data-expanded-icon="arrow-d" data-inset="false">
+                <h2>Shared Lists</h2>
+                <div "collapsible" data-theme="b" data-content-theme="d" data-collapsed-icon="arrow-r" data-expanded-icon="arrow-d" data-inset="false">
+                    <ul data-role="listview">
+                        {% for item in shared_bag %}
+                        {% set name = item[0] + ' by ' + item[2] + ', ' + item[1] %}
+                        <li><button text-pos="left" data-icon="delete" data-iconpos="right" type="submit" name="shared_ingredient" value="{{ item[0] }}" style="text-align:left"/>{{ name }}</button></li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div><!-- /collapsible -->
+        </div>
+    </div>
 </form>
 </div>
 {% endblock %}

@@ -6,6 +6,11 @@
 <div id='content' data-role='content' style="text-align: center;">
 	<form action="{{ url_for('group_listing') }}" method=post>
 		<div style="margin-top:10%; width:30%; height:30%;margin-left:35%;margin-right:30%;font-family:Comic Sans MS, Comic Sans, cursive;" >
+		    {% for message in get_flashed_messages() %}
+                <div class=flash>{{ message }}</div>
+            {% endfor %}
+            {% if error %}<p class=error><strong>Error:</strong> {{ error }}{% endif %}
+
         	<dl>
 				<button data-role="button" name="listing" value="add_group" data-icon="plus" value="GroupListing">Add a Group</button>
 			</dl>

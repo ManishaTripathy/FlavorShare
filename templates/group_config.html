@@ -7,7 +7,10 @@
 <div id='content' data-role='content' style="text-align: center;">
 <form action="{{ url_for('group_config') }}" method=post>
     <div style="margin-top:10%; width:30%; height:30%;margin-left:35%;margin-right:30%;font-family:Comic Sans MS, Comic Sans, cursive;" >
-
+        {% for message in get_flashed_messages() %}
+            <div class=flash>{{ message }}</div>
+        {% endfor %}
+        {% if error %}<p class=error><strong>Error:</strong> {{ error }}{% endif %}
 		<h2>Enter Group Details</h2>
 		<dl>
 		    {% for x in groups %}
@@ -15,55 +18,26 @@
 			{% endfor %}
 			<div id='TextGroup' data-role="controlgroup" data-type="horizontal">
 			<div id="TextBox1">
-                <div data-role="fieldcontain" >
-						<label for="category301">Main Course:</label>
-						<input type=text name='category301' id='category' value="0" style="width: 10%;/>
-				</div>
-
-				<div data-role="fieldcontain">
-					<label for="category302">Appetizers:</label>
-					<input type="text" name="category302" id="category" value="0" style="width: 10%;/>
-				</div>
-
-				<div data-role="fieldcontain">
+            		<label>Main Course:</label>
+					<input type=text name='category301' id='category' value="0" />
+					<label>Appetizers:</label>
+					<input type="text" name="category302" id="category" value="0" />
 					<label for="category303">Desserts:</label>
 					<input type="text" name="category303" id="category" value="0" />
-				</div>
-
-				<div data-role="fieldcontain">
 					<label for="category304">Beverages:</label>
 					<input type=text name='category304' id='category' value="0" />
-				</div>
-
-				<div data-role="fieldcontain">
 					<label for="category305">Breads:</label>
 					<input type=text name='category305' id='category' value="0" />
-				</div>
-
-				<div data-role="fieldcontain">
 					<label for="category306">Side Dishes:</label>
 					<input type=text name='category306' id='category' value="0"/>
-				</div>
-
-				<div data-role="fieldcontain">
 					<label for="category307">Silverware:</label>
 					<input type=text name='category307' id='category' value="0"/>
-				</div>
-
-				<div data-role="fieldcontain">
 					<label for="category308">Paper Towels:</label>
 					<input type=text name='category308' id='category' value="0"/>
-				</div>
-
-				<div data-role="fieldcontain">
 					<label for="category309">Plates:</label>
 					<input type=text name='category309' id='category' value="0"/>
-				</div>
-
-				<div data-role="fieldcontain">
 					<label for="category310">Cups:</label>
 					<input type=text name='category310' id='category' value="0" />
-				</div>
 			</div>
 			</div>
 			<button name="finish_group" value="save">Save</button>
