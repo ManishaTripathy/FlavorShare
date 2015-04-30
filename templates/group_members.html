@@ -1,32 +1,46 @@
 {% extends "layout.html" %}
 {% block body %}
-<h2>Enter Group Details</h2>
-{% if error %}<p class=error><strong>Error:</strong> {{ error }}{% endif %}
-<div id='content' data-role='content' style="text-align: center;">
-<form action="{{ url_for('group_members') }}" method=post>
-    <div style="margin-top:10%; width:30%; height:30%;margin-left:35%;margin-right:30%;font-family:Comic Sans MS, Comic Sans, cursive;" >
-        {% for message in get_flashed_messages() %}
-            <div class=flash>{{ message }}</div>
-        {% endfor %}
-        {% if error %}<p class=error><strong>Error:</strong> {{ error }}{% endif %}
+<script type='text/javascript'>
 
+var main = function(){
+$("#number_members").on('change',function(){
+    number_of_members=parseInt($("#number_members").val());
+    var htmlText='';
+    for (var i = 1; i <= number_of_members; i++) {
+    	htmlText+='<br/><label>Member Email #'+ i + ' : </label>' +
+	      '<input type="text" name="email' + i +'" id="email' + i + '" value="" style="border-radius:10px;width:100%;margin:5px;height:100%;" ></input><br/>';
+    }
+    $("#TextBoxDiv1").html(htmlText);
+});
+}
+$(document).ready(main);
+</script>
+
+<div id='content' data-role='content' style="text-align: center;">
+    <form action="{{ url_for('group_members') }}" method=post>
+        <div style="margin-top:10%; width:30%; height:30%;margin-left:35%;margin-right:30%;font-family:Comic Sans MS, Comic Sans, cursive;" >
+            {% for message in get_flashed_messages() %}
+                <div class=flash>{{ message }}</div>
+            {% endfor %}
+            {% if error %}<p class=error><strong>Error:</strong> {{ error }}{% endif %}
         <div>
-            <h2>Enter Group Members</h2>
+            <h2>Add Group Members</h2>
         </div>
 
-    <dl>
-			<div id='TextBoxesGroup' data-role="controlgroup" data-type="horizontal">
-			<div id="TextBoxDiv1">
-			<label>Email  : </label><input type=text name='email1' id='email' />
-			<label>Email  : </label><input type=text name='email2' id='email' />
-			<label>Email  : </label><input type=text name='email3' id='email' />
-			<label>Email  : </label><input type=text name='email4' id='email' />
-			<label>Email  : </label><input type=text name='email5' id='email' />
-		    </div>
-	        </div>
-	<button name="display_group_members" value="next">Next</button>
-	</dl>
-	</div>
+        <dl>
+        <div id='TextBoxesGroup' data-role="controlgroup" data-type="horizontal">
+            <label>Enter number of members in the group : </label><input type=text name='number_members' id='number_members' />
+            <div id="TextBoxDiv1">
+            <!--<label>Email : </label><input type=text name='email1' id='email' />
+            <label>Email : </label><input type=text name='email2' id='email' />
+            <label>Email : </label><input type=text name='email3' id='email' />
+            <label>Email : </label><input type=text name='email4' id='email' />
+            <label>Email : </label><input type=text name='email5' id='email' />-->
+            </div>
+        </div>
+        <button name="display_group_members" value="next">Next</button>
+        </dl>
+    </div>
 </form>
 </div>
 {% endblock %}

@@ -217,21 +217,19 @@ def group_members_summaryPage():
 @app.route('/group_members_summary', methods=['POST'])
 def group_members_summary():
     error = None
-    print "#@##@$@%@#%$^$^#$^%"+session['gname']
+    print session['grpname']
     if request.method == 'POST':
-        if request.form['group_summary'] == "next":
-			for i in range(1,6) :
+        if request.form['display_group_members'] == "next":
+            number_of_members=int(request.form['number_members'])
+            for i in range(1,(number_of_members+1)) :
 				f = "email{0}".format(i)
-				print "Printing f"
-				print request.form[f]
-				if request.form[f]:
-				    g.db.execute('insert into group_members(mid,gid) values ((select mid from users where email=\"' + request.form[f]+ '\") ,(select gid from groups where name=\"' + session['gname']+ '\"))')
+				g.db.execute('insert into group_members(mid,gid) values ((select mid from users where email=\"' + request.form[f]+ '\") ,(select gid from groups where name=\"' + session['grpname']+ '\"))')
 
 			#g.db.execute('insert into group_members(mid,gid) values ((select mid from users where email=\"' + request.form['email']+ '\") ,(select gid from groups where name=\"' + session['gname']+ '\"))')
-			        g.db.commit()
-
-			flash('Group Member Added Successfully')
-			return redirect(url_for('group_summary_init',groups=session['gname']))
+            g.db.commit()
+            print "go to hell"
+            flash('Group Members Added Successfully')
+            return redirect(url_for('group_summary_init',groups=session['gname']))
 
 @app.route('/group_members')
 def group_membersPage():
@@ -247,15 +245,16 @@ def group_members():
     print session['grpname']
     if request.method == 'POST':
         if request.form['display_group_members'] == "next":
-			for i in range(1,6) :
+            number_of_members=int(request.form['number_members'])
+            for i in range(1,(number_of_members+1)) :
 				f = "email{0}".format(i)
 				g.db.execute('insert into group_members(mid,gid) values ((select mid from users where email=\"' + request.form[f]+ '\") ,(select gid from groups where name=\"' + session['grpname']+ '\"))')
 
 			#g.db.execute('insert into group_members(mid,gid) values ((select mid from users where email=\"' + request.form['email']+ '\") ,(select gid from groups where name=\"' + session['gname']+ '\"))')
-			g.db.commit()
-			print "go to hell"
-			flash('Group Members Added Successfully')
-			return redirect(url_for('display_group_membersPage'))
+            g.db.commit()
+            print "go to hell"
+            flash('Group Members Added Successfully')
+            return redirect(url_for('display_group_membersPage'))
 
 @app.route('/display_group_members')
 def display_group_membersPage():
@@ -286,8 +285,11 @@ def group_summary_init():
 	group = request.args['groups']
 	print group
 	session['gname'] = group
+
 	cur = g.db.execute('select name from users where mid in (select mid from group_members where gid in (select gid from groups where name =\"' + group+ '\"))')
+	names = [dict(name=row[0]) for row in cur.fetchall()]
 	g.db.commit()
+
 	cur_details=g.db.execute('select description,venue,eventdate from groups where gid in (select gid from groups where name =\"' + group+ '\")')
 	mids = [row for row in cur_details.fetchall()]
 	mid=mids[0]
@@ -296,11 +298,11 @@ def group_summary_init():
 	eventdate=[dict(eventdate=row[2]) for row in mids]
 
 	groups = [dict(gname=group)]
-	names = [dict(name=row[0]) for row in cur.fetchall()]
 
-	category_details=g.db.execute('select category.name,group_category.no_of_items from category,group_category where category.cid=group_category.cid and category.cid in(select cid from group_category where no_of_items>0 and gid in (select gid from groups where name=\"' + group+ '\"))')
+	category_details=g.db.execute('select category.name,group_category.no_of_items from category,group_category where category.cid=group_category.cid and group_category.gid in (select gid from groups where name=\"' + group + '\") and group_category.no_of_items>0')
 	categories = [row for row in category_details.fetchall()]
 	cat_name={row[0]:row[1] for row in categories}
+	print cat_name
 
 	category_recipe_details=g.db.execute('select category.name,recipes.name from category,group_category_recipes,recipes where category.cid=group_category_recipes.cid and recipes.rid=group_category_recipes.rid and gid in (select gid from groups where name=\"' + group+ '\") and category.cid not in (307,308,309,310)')
 	category_recipe = [row for row in category_recipe_details.fetchall()]
@@ -311,7 +313,21 @@ def group_summary_init():
 	    else :
 	        category_recipe_list[item[0]]=[item[1]]
 
-	return render_template('group_summary.html',groups=groups,names=names,desc=desc,venue=venue,eventdate=eventdate,cat_name=cat_name,category_recipe_list=category_recipe_list)
+	cur_user = g.db.execute('select mid from users where email = \''+ session.get('username') + '\'')
+	user_id = [row for row in cur_user.fetchall()]
+	user_id = user_id[0]
+
+	cur_admin = g.db.execute('select admin_id from groups where gid in (select gid from groups where name =\"' + group+ '\")')
+	admin_id = [row for row in cur_admin.fetchall()]
+	admin_id = admin_id[0]
+
+	print admin_id
+	print user_id
+	if admin_id[0] == user_id[0]:
+	    print "In admin_id==user_id"
+	    return render_template('group_summary.html',groups=groups,names=names,desc=desc,venue=venue,eventdate=eventdate,cat_name=cat_name,category_recipe_list=category_recipe_list)
+	else:
+	    return render_template('group_summary_normal.html',groups=groups,names=names,desc=desc,venue=venue,eventdate=eventdate,cat_name=cat_name,category_recipe_list=category_recipe_list)
 
 @app.route('/group_summary', methods=['POST'])
 def group_summary():
@@ -328,7 +344,8 @@ def group_summary():
 			flash('Group Member Deleted Successfully')
 			return redirect(url_for('group_summary_init',groups=session['gname']))
         elif 'edit' in request.form:
-			return redirect(url_for('group_members_summaryPage'))
+            print "In edit"
+            return redirect(url_for('group_members_summaryPage'))
         elif 'remove_recipe' in request.form:
 			print "Akshay!!!"
 			checked_recipes = request.form.getlist('checkbox-recipe')
@@ -341,7 +358,7 @@ def group_summary():
         elif 'done' in request.form:
 			return redirect(url_for('group_listingPage'))
         elif 'addrecipe' in request.form:
-			cur_category_name = g.db.execute('select category.name from category,group_category where category.cid=group_category.cid and group_category.no_of_items>0 and category.cid not in (307,308,309,310) and group_category.gid in (select gid from groups where name=\"' + group+ '\")')
+			cur_category_name = g.db.execute('select name from category where cid in (select A.cid from (select cid,no_of_items from group_category where cid not in (307,308,309,310) and gid in (select gid from groups where name=\"' + group+ '\")) A  LEFT OUTER JOIN (select cid, count(rid) as C from group_category_recipes where gid in (select gid from groups where name=\"' + group+ '\") group by cid) B ON A.cid=B.cid where (A.no_of_items - ifnull(B.C,0)) > 0 )')
 			category = [row for row in cur_category_name.fetchall()]
 
 			recipe_list = {}
@@ -601,7 +618,16 @@ def showBagPost():
 		    g.db.commit()
 		    return redirect(url_for('showBag'))
         elif 'shared_ingredient' in request.form:
-		    return redirect(url_for('showBag'))
+            print "In shared_ingredient"
+            cur_user = g.db.execute('select mid from users where email = \''+ session.get('username') + '\'')
+            mid = [row for row in cur_user.fetchall()]
+            mid=mid[0]
+            ingredient=request.form['shared_ingredient']
+            print mid[0]
+            print ingredient
+            g.db.execute('delete from my_shared_bag where mid_assignee=' + str(mid[0]) + ' and ingredient = \'' +  ingredient + '\'' )
+            g.db.commit()
+            return redirect(url_for('showBag'))
 
 
 if __name__ == '__main__':

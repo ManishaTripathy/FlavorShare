@@ -1,0 +1,74 @@
+{% extends "layout.html" %}
+{% block body %}
+
+{% if error %}<p class=error><strong>Error:</strong> {{ error }}{% endif %}
+<div id='content' data-role='content' style="text-align: center;">
+<form action="{{ url_for('group_summary') }}" method=post>
+    <div style="margin-top:2%; margin-left:20%; width:60%;font-family:Comic Sans MS, Comic Sans;" >
+    {% for message in get_flashed_messages() %}
+            <div class=flash>{{ message }}</div>
+    {% endfor %}
+    {% if error %}<p class=error><strong>Error:</strong> {{ error }}{% endif %}
+
+	{% for x in groups%}
+		<h2>{{ x.gname }}</h2>
+	{% for a in desc%}
+	{% for b in venue%}
+	{% for c in eventdate%}
+        <ul data-role="listview" data-inset="true" data-icon="star">
+            <li style="text-align: center">Description : {{ a.desc }}</li>
+        </ul>
+        <ul data-role="listview" data-inset="true" data-icon="star">
+            <li style="text-align: center">Venue : {{ b.venue }}</li>
+        </ul>
+        <ul data-role="listview" data-inset="true" data-icon="star">
+            <li style="text-align: center">Event Date : {{ c.eventdate }}</li>
+        </ul>
+    {% endfor %}
+    {% endfor %}
+    {% endfor %}
+    {% endfor %}
+
+    <ul data-role="listview" data-inset="true" data-shadow="false">
+    	<li data-role="collapsible" data-iconpos="right" data-inset="false">
+        	<h2>Members</h2>
+        	<ul data-role="listview" data-inset="true" data-icon="star">
+        	    {% for r in names %}
+        		<li><label>{{ r.name }}</label></li>
+            		<!--li><label><input type="checkbox" name="checkbox-0" value="{{ r.name }}"/>{{ r.name }}</label></li-->
+            	{% endfor %}
+            	</li>
+        	</ul>
+    	 </li>
+
+	<ul data-role="listview" data-inset="true" data-shadow="false">
+		<li data-role="collapsible" data-iconpos="right" data-inset="false">
+			<h2>Menu Summary</h2>
+			{% for category in cat_name.keys() %}
+            <ul data-role="listview" data-inset="true" data-icon="star">
+				<!--<ul data-role="listview" data-inset="true" data-shadow="false" data-icon="star">-->
+					<li data-role="collapsible" data-iconpos="right" data-inset="false">
+						<h2>{{ category }} <span class="ui-li-count"> {{ cat_name[category] }}</span></h2>
+						{% if category in category_recipe_list.keys() %}
+						<ul data-role="listview" data-inset="true" data-icon="star">
+						    {% for recipes in category_recipe_list[category] %}
+    						    <li><label><input type="checkbox" name="checkbox-recipe" value="{{ recipes }}" />{{ recipes }}</label></label></li>
+    						{% endfor %}
+    						<!--<a href="#" data-role="button" data-icon="delete">Remove selected item(s)</a>-->
+    					</ul>
+    					{% endif %}
+					</li>
+				<!--</ul>-->
+			</ul>
+            {% endfor %}
+    		<button name="remove_recipe" value="remove_recipe" data-icon="minus">Remove this item</a>
+		</li>
+		</li>
+		</ul>
+	</ul>
+	<button name="addrecipe" value="addrecipe">Add Recipe</button>
+	<button name="done" value="done">Done</button>
+	<div>
+</form>
+</div>
+{% endblock %}
