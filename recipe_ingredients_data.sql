@@ -274,8 +274,24 @@ insert into recipe_ingredients values(225,649,'for pan frying ');
 insert into recipe_ingredients values(225,650,'');
 insert into recipe_ingredients values(225,651,'');
 
+insert into recipe_ingredients values(226,652,'1 ');
+insert into recipe_ingredients values(226,653,'pinch ');
+insert into recipe_ingredients values(226,654,'juice ');
+insert into recipe_ingredients values(226,655,'2 teaspoons ');
+insert into recipe_ingredients values(226,656,'½ teaspoon ');
+insert into recipe_ingredients values(226,657,'¼ cup ');
 
-
+insert into recipe_ingredients values(227,658,'1 tablespoon ');
+insert into recipe_ingredients values(227,659,'2 tablespoon ');
+insert into recipe_ingredients values(227,660,'¼ cup ');
+insert into recipe_ingredients values(227,661,'½ cup ');
+insert into recipe_ingredients values(227,662,'½ cup ');
+insert into recipe_ingredients values(227,663,'½ teaspoon ');
+insert into recipe_ingredients values(227,664,'½ teaspoon ');
+insert into recipe_ingredients values(227,665,'1 tablespoon ');
+insert into recipe_ingredients values(227,666,'10 ounces');
+insert into recipe_ingredients values(227,667,'1 quart');
+insert into recipe_ingredients values(227,668,'¼ cup ');
 
 
 

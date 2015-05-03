@@ -273,3 +273,22 @@ insert into ingredients values(648,'white corn tortillas, warmed');
 insert into ingredients values(649,'Olive oil');
 insert into ingredients values(650,'Avocado Dipping Sauce');
 insert into ingredients values(651,'Chopped lettuce, halved cherry tomatoes, chopped cilantro, hot sauce I use Cholula, and lime wedges for servin');
+
+insert into ingredients values(652,'small clove garlic');
+insert into ingredients values(653,'salt');
+insert into ingredients values(654,'limes');
+insert into ingredients values(655,'kosher salt');
+insert into ingredients values(656,'chili powder');
+insert into ingredients values(657,'extra-virgin olive oil');
+
+insert into ingredients values(658,'sesame seeds');
+insert into ingredients values(659,'poppy seeds');
+insert into ingredients values(660,'white sugar');
+insert into ingredients values(661,'olive oil');
+insert into ingredients values(662,'distilled white vinegar');
+insert into ingredients values(663,'paprika');
+insert into ingredients values(664,'Worcestershire sauce');
+insert into ingredients values(665,'minced onion');
+insert into ingredients values(666,'fresh spinach - rinsed, dried and torn into bite-size pieces');
+insert into ingredients values(667,'strawberries - cleaned, hulled and sliced');
+insert into ingredients values(668,'almonds, blanched and slivered');

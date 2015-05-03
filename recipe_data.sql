@@ -155,9 +155,18 @@ Serve immediately over rice, topped with green onions and sesame seeds, if desir
 
 insert into recipes values(225,301,'sweet potato lime taquitos','1.Heat a medium pot of salted water to a boil. Once boiling drop the potatoes into the water and reduce the heat to a simmer. Cook for 15 minutes or until the potatoes are easily pierced with a fork. Drain, return the potatoes to the pot and combine with the vegan butter, cinnamon, cumin, and salt.<br/><br/>
 2.In a small bowl, combine the red onion, chopped cilantro, and lime juice. Set aside to marinate, stirring occasionally.<br/><br/>
-3.In a large heavy skillet, heat ¼-inch of oil over medium heat. Working with one tortilla at a time, rub the fleshy side of half of a lime over the tortilla then spread 1 heaping tablespoon of mashed sweet potatoes and half of a tablespoon of the onion, cilantro, and lime mixture evenly along one side of the tortilla. Gently roll the tortilla tightly beginning on the side with the filling. Use a toothpick to secure the taquito so it does not unroll while cooking. Corn tortillas have a tendency to dry out quickly and split, so I rolled 4 taquitos then placed them in the hot pan and rolled 4 more while the others were cooking until they were all finished.<br/><br/>
+3.Add the dressing and toss to coat evenly<br/><br/>
 4.Place the prepared taquitos seam side down in the hot oil and cook, rotating with tongs, until they are golden brown and crispy on all sides, approximately 4 to 5 minutes per batch. Continue to cook the rest of the taquitos in batches, adding more oil as needed. Remove the toothpicks after you have fried them and serve with Avocado Dipping Sauce, lettuce, halved cherry tomatoes, cilantro, hot sauce, and lime wedges.<br/><br/>',3,55,4);
 
+insert into recipes values(226,306,'black_beanSalad','1.Cook the corn, bell pepper, and onions in the olive oil until beginning to brown over medium-high heat in a skillet.<br/><br/>
+2.Toss in the black beans and cook until warm<br/><br/>
+3.Add the dressing and toss to coat evenly<br/><br/>
+4.Remove from the heat and gently fold in the tomatoes, avocado, and cilantro.<br/><br/>',3,15,4)
+
+insert into recipes values(227,306,'strawberry_spinach_salad','1. In a medium bowl, whisk together the sesame seeds, poppy seeds, sugar, olive oil, vinegar, paprika, Worcestershire sauce and onion.<br/><br/>
+2.Cover, and chill for one hour. and lime juice.<br/><br/>
+3.In a large bowl, combine the spinach, strawberries and almonds. <br/><br/>
+4.In a large bowl, combine the spinach, strawberries and almonds. <br/><br/>',3,15,4);
 
 
 

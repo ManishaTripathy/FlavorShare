@@ -117,7 +117,16 @@ def homePage():
     names = [row for row in cur.fetchall()]
     name = names[0]
     display_name = name[0]
-    return render_template('home.html',display_name=display_name)
+    login=True
+    cur_count = g.db.execute('select count(*) from notification where mid_assignee in (select mid from users where email=\''+ session.get('username') + '\')')
+
+    for row in cur_count:
+        if row[0]==0:
+            notification=False
+        else:
+            notification=True
+
+    return render_template('home.html',display_name=display_name,login=login,notification=notification)
 
 @app.route('/logout')
 def logout():
@@ -125,6 +134,58 @@ def logout():
     session.pop('username', None)
     session.pop('logged_in', None)
     return redirect(url_for('main_page'))
+
+@app.route('/notification', methods=['GET'])
+def notificationPage():
+	error = None
+	if request.method == 'GET':
+
+		cur = g.db.execute('select mid_assignor,gid,description,nid from notification where mid_assignee in (select mid from users where email=\''+ session.get('username') + '\')')
+
+		mids = [row for row in cur.fetchall()]
+
+		#mid=mids[0]
+
+        notification_list = []
+
+        for row in mids:
+            notification = {}
+            cur_name = g.db.execute('select name from users where mid= \''+ str(row[0]) + '\'')
+            cur_group = g.db.execute('select name from groups where gid= \''+ str(row[1]) + '\'')
+
+            for x in cur_name:
+                for y in cur_group:
+                    notification = [dict(name=str(x[0]),group=str(y[0]),desc=str(row[2]),nid=str(row[3]))]
+                    notification_list.append(notification)
+        return render_template('notification.html',notification_list=notification_list)
+
+@app.route('/notification', methods=['POST'])
+def notification():
+    error = None
+    if request.method == 'POST':
+        if "delete" in request.form:
+            nid = request.form["delete"]
+            g.db.execute('delete from notification where nid=\''+ request.form["delete"] + '\'')
+            g.db.commit()
+
+            cur = g.db.execute('select mid_assignor,gid,description,nid from notification where mid_assignee in (select mid from users where email=\''+ session.get('username') + '\')')
+
+        mids = [row for row in cur.fetchall()]
+        #mid=mids[0]
+
+        notification_list = []
+
+        for row in mids:
+            notification = {}
+            cur_name = g.db.execute('select name from users where mid= \''+ str(row[0]) + '\'')
+            cur_group = g.db.execute('select name from groups where gid= \''+ str(row[1]) + '\'')
+
+            for x in cur_name:
+                for y in cur_group:
+                    notification = [dict(name=str(x[0]),group=str(y[0]),desc=str(row[2]),nid=str(row[3]))]
+                    notification_list.append(notification)# = [dict(list=notification)]
+
+    return render_template('notification.html',notification_list=notification_list)
 
 @app.route('/myProfile')
 def myProfile():
@@ -249,7 +310,7 @@ def group_members():
             for i in range(1,(number_of_members+1)) :
 				f = "email{0}".format(i)
 				g.db.execute('insert into group_members(mid,gid) values ((select mid from users where email=\"' + request.form[f]+ '\") ,(select gid from groups where name=\"' + session['grpname']+ '\"))')
-
+				g.db.execute('insert into notification(mid_assignee,mid_assignor,gid,description) values ((select mid from users where email=\"' + request.form[f]+ '\") ,(select mid from users where email = \''+ session.get('username') + '\'),(select gid from groups where name=\"' + session['grpname']+ '\"),("You have been added to a group!!"))')
 			#g.db.execute('insert into group_members(mid,gid) values ((select mid from users where email=\"' + request.form['email']+ '\") ,(select gid from groups where name=\"' + session['gname']+ '\"))')
             g.db.commit()
             print "go to hell"
@@ -321,13 +382,18 @@ def group_summary_init():
 	admin_id = [row for row in cur_admin.fetchall()]
 	admin_id = admin_id[0]
 
+	cur_admin_name = g.db.execute('select name from users where mid = \''+ str(admin_id[0]) + '\'')
+	admin_name = [row for row in cur_admin_name.fetchall()]
+	admin_name = admin_name[0]
+	a_name = [dict(aname=admin_name[0])]
+
 	print admin_id
 	print user_id
 	if admin_id[0] == user_id[0]:
 	    print "In admin_id==user_id"
-	    return render_template('group_summary.html',groups=groups,names=names,desc=desc,venue=venue,eventdate=eventdate,cat_name=cat_name,category_recipe_list=category_recipe_list)
+	    return render_template('group_summary.html',groups=groups,names=names,desc=desc,venue=venue,eventdate=eventdate,cat_name=cat_name,category_recipe_list=category_recipe_list,a_name=a_name)
 	else:
-	    return render_template('group_summary_normal.html',groups=groups,names=names,desc=desc,venue=venue,eventdate=eventdate,cat_name=cat_name,category_recipe_list=category_recipe_list)
+	    return render_template('group_summary_normal.html',groups=groups,names=names,desc=desc,venue=venue,eventdate=eventdate,cat_name=cat_name,category_recipe_list=category_recipe_list,a_name=a_name)
 
 @app.route('/group_summary', methods=['POST'])
 def group_summary():
@@ -561,8 +627,9 @@ def share():
     print mid_assignee[0]
 
     for i in ingredients_list1:
-        print i
+        #print i
         g.db.execute('insert into my_shared_bag(mid_assignee,mid_assignor,rid,gid,ingredient) values('+str(mid_assignee[0])+','+str(mid[0])+','+str(rid[0])+',' + str(gid[0])+ ',' +'\"'+i+'\")')
+        g.db.execute('insert into notification(mid_assignee,mid_assignor,gid,description) values('+str(mid_assignee[0])+','+str(mid[0])+',' + str(gid[0])+ ',' +'\"A bag has been shared with you!!!")')
     g.db.commit()
     flash('Ingredients Shared Successfully')
     return redirect(url_for('homePage'))

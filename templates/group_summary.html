@@ -11,6 +11,7 @@
     {% if error %}<p class=error><strong>Error:</strong> {{ error }}{% endif %}
 
 	{% for x in groups%}
+	{% for xy in a_name%}
 		<h2>{{ x.gname }}</h2>
 	{% for a in desc%}
 	{% for b in venue%}
@@ -24,11 +25,14 @@
         <ul data-role="listview" data-inset="true" data-icon="star">
             <li style="text-align: center">Event Date : {{ c.eventdate }}</li>
         </ul>
+        <ul data-role="listview" data-inset="true" data-icon="star">
+            <li style="text-align: center">Created by : {{ xy.aname }}</li>
+        </ul>
     {% endfor %}
     {% endfor %}
     {% endfor %}
     {% endfor %}
-
+    {% endfor %}
     <ul data-role="listview" data-inset="true" data-shadow="false">
     	<li data-role="collapsible" data-iconpos="right" data-inset="false">
         	<h2>Members</h2>

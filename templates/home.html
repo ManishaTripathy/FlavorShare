@@ -1,5 +1,18 @@
 {% extends "layout.html" %}
 
+{% block bodyhead %}
+{% if login %}
+<div class="ui-block-b" style="width: 3%; height: 30px;" >
+	{% if notification %}
+		<a href="notification"><img src="static\images\new_notification_2.jpg" width="2%" height="50%" style="position:absolute; top:15px;" alt="FlavorShare" /></a>
+	{% else %}
+		<a href="notification"><img src="static\images\no_notification.jpg" width="2%" height="50%" style="position:absolute; top:15px;" alt="FlavorShare" /></a>
+	{% endif %}
+</div>
+{% endif %}
+{% endblock %}
+
+
 {% block body %}
 
 <div id='content' data-role='content' style="text-align: center;">

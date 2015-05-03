@@ -1,0 +1,28 @@
+{% extends "layout.html" %}
+
+{% block body %}
+{% if error %}<p class=error><strong>Error:</strong> {{ error }}{% endif %}
+
+<div id='content' data-role='content' style="text-align: center;">
+	<form action="{{ url_for('notification') }}" method=post>
+		<div style="margin-top:10%; width:30%; height:30%;margin-left:35%;margin-right:30%;font-family:Comic Sans MS, Comic Sans, cursive;" >
+            {% for lt in notification_list %}
+            {% for l in lt %}
+            <ul data-role="listview" data-inset="true" data-shadow="false">
+                <li data-role="collapsible" data-iconpos="right" data-inset="false">
+                     <h2>{{ l.desc }}</h2>
+                    <!--button text-pos="left" type="text" name="status" value="{{ l.desc }}" style="text-align:left"/>{{ l.desc }}</button-->
+                    <ul data-role="listview" data-inset="true" data-icon="star">
+                        <label>Assigned by:{{ l.name }}</label>
+                        <label>Group name:{{ l.group }}</label>
+                        <button name="delete" value="{{ l.nid }}" data-icon="check">Seen</button>
+                    </ul>
+                </li>
+            </ul>
+            {% endfor %}
+            {% endfor %}
+		</div>
+	</form>
+</div>
+
+{% endblock %}
